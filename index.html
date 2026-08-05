@@ -132,17 +132,35 @@ h1{
    que o livro vende. Nunca chamar de "brinde": o app é público e gratuito,
    e prometer que ele vem junto com a compra seria trocar a isca. */
 .btn-2{
-  display:inline-block;margin-top:20px;
+  display:inline-flex;align-items:center;gap:11px;margin-top:18px;
   color:var(--cyan);text-decoration:none;
-  font:500 14.5px var(--sans);
-  padding:11px 2px;border-bottom:1px solid rgba(109,181,181,.4);
-  transition:color .16s, border-color .16s
+  font:600 15.5px var(--sans);letter-spacing:.01em;
+  padding:16px 32px;border-radius:99px;
+  border:1.5px solid rgba(109,181,181,.55);
+  background:rgba(109,181,181,.06);
+  box-shadow:0 0 34px -14px rgba(109,181,181,.5);
+  transition:background .18s, border-color .18s, color .18s, transform .16s
 }
-.btn-2:hover{color:var(--papel);border-color:var(--papel)}
-.btn-2:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+.btn-2:hover{
+  background:rgba(109,181,181,.13);border-color:var(--cyan);
+  color:var(--papel);transform:translateY(-1px)
+}
+.btn-2:active{transform:translateY(0) scale(.98)}
+.btn-2:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+/* Ponto que respira: puxa o olho de longe sem virar adesivo. */
+.btn-2 i{
+  width:8px;height:8px;border-radius:50%;background:var(--cyan);flex:0 0 auto;
+  box-shadow:0 0 0 0 rgba(109,181,181,.6);
+  animation:pulsa 2.4s ease-out infinite
+}
+@keyframes pulsa{
+  0%{box-shadow:0 0 0 0 rgba(109,181,181,.55)}
+  70%{box-shadow:0 0 0 11px rgba(109,181,181,0)}
+  100%{box-shadow:0 0 0 0 rgba(109,181,181,0)}
+}
 .sob-btn-2{
-  font:500 12px/1.5 var(--sans);color:var(--texto-3,#7A8C90);
-  max-width:34ch;margin:9px auto 0
+  font:500 12.5px/1.5 var(--sans);color:var(--bruma);
+  max-width:36ch;margin:11px auto 0;opacity:.9
 }
 
 .desce{
@@ -325,8 +343,8 @@ footer a{color:var(--ouro-claro)}
       <a class="btn" href="#" data-cta="topo">Quero o método →</a>
       <p class="sob-btn">Acesso imediato · 7 dias de garantia · celular e computador</p>
 
-      <a class="btn-2" href="app/" data-ferramenta="hero">Experimentar a ferramenta grátis →</a>
-      <p class="sob-btn-2">Monte um comando agora, sem cadastro. Se quiser entender por que funciona, o método está no livro.</p>
+      <a class="btn-2" href="app/" data-ferramenta="hero"><i aria-hidden="true"></i>Experimentar grátis, sem cadastro →</a>
+      <p class="sob-btn-2">Monte um comando de verdade em 30 segundos. Se quiser entender por que funciona, o método está no livro.</p>
     </div>
     <p class="desce">role</p>
   </div>

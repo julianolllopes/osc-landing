@@ -1,0 +1,20 @@
+{
+  "name": "Painel de Comando — O Segredo do Comando",
+  "short_name": "Comando",
+  "description": "Monte comandos completos pelo método C.O.M.A.N.D.O. Funciona no celular, sem cadastro e sem internet.",
+  "lang": "pt-BR",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#102A33",
+  "theme_color": "#102A33",
+  "icons": [
+    {
+      "src": "icone.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Central de Comando — O Segredo do Comando</title>
+<meta name="description" content="O método C.O.M.A.N.D.O. operando no seu dia: três prioridades, projetos com documento-mestre e comandos completos. Sem cadastro e sem internet.">
+<meta name="theme-color" content="#102A33">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102A33'/%3E%3Ccircle cx='32' cy='32' r='24' fill='none' stroke='%236DB5B5' stroke-width='2'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle' fill='%23D4B783' font-family='system-ui'%3E%E2%8C%98%3C/text%3E%3C/svg%3E">
+<style>
+/* =================================================================
+   CENTRAL DE COMANDO — proposta v3 · "presença"
+
+   Matizes de 00_GOVERNANCA/MARCA.md. A sofisticação vem de quatro
+   decisões: luz ambiente viva (aurora), tipografia display fina,
+   vidro sem bordas duras, e dourado raro — só onde a mão toca.
+   Mono é tempero (rótulos, dados, o comando gerado), não a voz.
+   ================================================================= */
+:root{
+  --abismo:#081821; --navy:#102A33; --papel:#FBFAF7;
+  --ouro:#D4B783; --ouro-claro:#EADDC7; --ouro-filete:#B58A4B;
+  --cyan:#6DB5B5; --teal:#176D66; --bruma:#9FB0AE;
+  --texto:var(--papel); --suave:var(--bruma); --acento:var(--cyan); --dourado:var(--ouro);
+  --vidro:rgba(251,250,247,.05);
+  --vidro-borda:rgba(251,250,247,.08);
+  --poco:rgba(8,24,33,.55);
+  --mono:ui-monospace,'SF Mono','Cascadia Code',Consolas,'Roboto Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  background:linear-gradient(180deg,var(--abismo) 0%,var(--navy) 55%,var(--abismo) 100%);
+  background-attachment:fixed;
+  color:var(--texto);
+  font:400 16px/1.6 var(--sans);
+  padding-bottom:118px;min-height:100svh
+}
+
+/* ---- aurora: a presença. Três massas de luz em deriva lenta. ---- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;filter:blur(64px) saturate(130%)}
+.aurora i{position:absolute;border-radius:50%}
+.aurora i:nth-child(1){width:58vmax;height:58vmax;left:-20vmax;top:-26vmax;opacity:.17;
+  background:radial-gradient(circle,var(--teal),transparent 64%);animation:d1 26s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:46vmax;height:46vmax;right:-16vmax;top:6vmax;opacity:.11;
+  background:radial-gradient(circle,var(--ouro),transparent 62%);animation:d2 34s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:52vmax;height:52vmax;left:20vw;bottom:-30vmax;opacity:.13;
+  background:radial-gradient(circle,var(--cyan),transparent 64%);animation:d3 22s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(9vmax,7vmax) scale(1.12)}}
+@keyframes d2{to{transform:translate(-7vmax,11vmax) scale(.93)}}
+@keyframes d3{to{transform:translate(7vmax,-9vmax) scale(1.09)}}
+
+main,header,nav,.aviso{position:relative;z-index:1}
+.env{max-width:760px;margin:0 auto;padding:0 18px}
+
+header{
+  position:sticky;top:0;z-index:30;padding:14px 0;
+  background:linear-gradient(180deg, rgba(8,24,33,.82), rgba(8,24,33,.55) 70%, transparent);
+  backdrop-filter:blur(14px) saturate(140%)
+}
+header .env{display:flex;align-items:center;gap:11px}
+/* o orbe: a marca respirando */
+header .sig{
+  width:32px;height:32px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ouro);font-size:15px;line-height:1;
+  background:radial-gradient(circle at 35% 30%, rgba(212,183,131,.30), rgba(109,181,181,.10) 60%, transparent 75%);
+  box-shadow:0 0 20px rgba(212,183,131,.22), inset 0 0 12px rgba(109,181,181,.16);
+  animation:respira 4.6s ease-in-out infinite
+}
+@keyframes respira{50%{box-shadow:0 0 30px rgba(212,183,131,.38), inset 0 0 14px rgba(109,181,181,.26);transform:scale(1.05)}}
+header b{font:600 12px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--papel)}
+header .hoje-data{margin-left:auto;font:500 10.5px var(--mono);letter-spacing:.14em;color:var(--bruma);text-transform:uppercase}
+
+/* entrada suave de cada seção ao trocar de aba */
+main > section{animation:surge .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes surge{from{opacity:0;transform:translateY(16px)}}
+
+h1{font:200 34px/1.15 var(--sans);letter-spacing:-.02em;margin:30px 0 6px;color:var(--papel)}
+.lead{color:var(--suave);font-size:14.5px;margin-bottom:22px;max-width:52ch}
+h2{
+  font:600 10.5px var(--mono);letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(212,183,131,.9);margin:28px 0 10px;display:flex;align-items:center;gap:9px
+}
+h2 .tag{
+  font:600 9.5px var(--mono);letter-spacing:.18em;color:var(--cyan);
+  background:rgba(109,181,181,.1);border-radius:99px;padding:3px 10px
+}
+
+.caixa{
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:18px;
+  padding:18px;margin-bottom:12px;
+  box-shadow:0 22px 44px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(251,250,247,.06)
+}
+
+.linha-add{display:flex;gap:9px;margin-bottom:12px}
+.linha-add input{flex:1}
+input[type=text],textarea{
+  width:100%;background:var(--poco);color:var(--texto);
+  border:1px solid rgba(251,250,247,.08);border-radius:13px;padding:12px 14px;
+  font:inherit;font-size:15px;transition:border-color .2s, box-shadow .2s
+}
+textarea{resize:vertical;min-height:60px}
+input:focus,textarea:focus{
+  outline:none;border-color:rgba(109,181,181,.65);
+  box-shadow:0 0 0 3px rgba(109,181,181,.14), 0 0 24px rgba(109,181,181,.12)
+}
+input::placeholder,textarea::placeholder{color:var(--bruma);opacity:.55}
+
+.btn{
+  background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 55%,var(--ouro-filete));
+  color:var(--abismo);border:0;border-radius:99px;
+  padding:12px 20px;font:700 13.5px var(--sans);letter-spacing:.01em;
+  cursor:pointer;white-space:nowrap;
+  box-shadow:0 10px 24px -10px rgba(212,183,131,.45);
+  transition:transform .15s, box-shadow .15s
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(212,183,131,.55)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.sec{
+  background:rgba(251,250,247,.06);color:var(--papel);
+  border:1px solid rgba(251,250,247,.12);box-shadow:none;font-weight:600
+}
+.btn.sec:hover{background:rgba(251,250,247,.1);box-shadow:none}
+.btn.mini{padding:8px 13px;font-size:12px}
+.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+
+.item{
+  display:flex;align-items:flex-start;gap:11px;padding:11px 12px;
+  border-radius:13px;margin-bottom:4px;transition:background .15s
+}
+.item:hover{background:rgba(251,250,247,.035)}
+.item .tx{flex:1;font-size:15px;padding-top:2px}
+.item .acs{display:flex;gap:6px;flex-shrink:0}
+.item input[type=checkbox]{width:21px;height:21px;accent-color:var(--cyan);margin-top:2px;flex-shrink:0}
+.item.feito .tx{text-decoration:line-through;color:var(--suave);opacity:.7}
+.vazio{color:var(--bruma);font-size:13.5px;padding:8px 4px;opacity:.85}
+
+.prog{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.prog span:first-child{font:200 28px/1 var(--sans);letter-spacing:-.01em;color:var(--papel)}
+.prog span:last-child{font:600 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ouro)}
+.medidor{height:3px;border-radius:99px;overflow:hidden;margin-bottom:18px;background:rgba(251,250,247,.08)}
+.medidor i{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--cyan),var(--ouro));
+  box-shadow:0 0 14px rgba(109,181,181,.5);transition:width .35s ease
+}
+
+.nota{
+  background:rgba(212,183,131,.06);border:1px solid rgba(212,183,131,.14);
+  border-radius:16px;padding:13px 15px;font-size:13.5px;margin:18px 0
+}
+.nota b{display:block;font:600 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px}
+
+.proj{cursor:pointer}
+.proj h3{font:500 16.5px var(--sans);margin-bottom:3px;color:var(--papel)}
+.proj .meta{font:500 11px var(--mono);letter-spacing:.05em;color:var(--bruma)}
+.volta{background:none;border:0;color:var(--cyan);font:600 13px var(--sans);letter-spacing:.02em;cursor:pointer;padding:16px 0 0;display:inline-block}
+.decisao{padding:10px 4px;border-bottom:1px solid rgba(251,250,247,.06);font-size:14.5px}
+.decisao:last-child{border-bottom:0}
+.decisao strong{color:var(--papel);font-weight:600}
+.decisao .pq{color:var(--suave);font-size:13.5px}
+.decisao time{color:var(--ouro);font:500 10.5px var(--mono);letter-spacing:.12em;display:block;margin-top:3px}
+
+.campo{
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:15px;
+  padding:13px;margin-bottom:9px;transition:border-color .25s, box-shadow .25s
+}
+.campo.ok{border-color:rgba(109,181,181,.5);box-shadow:0 0 22px rgba(109,181,181,.1)}
+.campo label{display:flex;align-items:flex-start;gap:11px;cursor:pointer}
+.letra{
+  flex:0 0 auto;width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(212,183,131,.4);
+  background:radial-gradient(circle at 38% 30%, rgba(212,183,131,.16), transparent 70%);
+  color:var(--ouro);display:flex;align-items:center;justify-content:center;
+  font:700 12.5px var(--mono);transition:all .25s
+}
+.campo.ok .letra{background:var(--cyan);border-color:var(--cyan);color:var(--abismo);box-shadow:0 0 14px rgba(109,181,181,.45)}
+.rot{font:600 13px var(--sans);letter-spacing:.06em;display:block;color:var(--papel)}
+.dica{font-size:12.5px;color:var(--suave);display:block}
+.campo textarea{margin-top:10px;min-height:54px;font-size:14.5px}
+
+.saida{
+  background:var(--poco);border:1px solid rgba(251,250,247,.07);border-radius:15px;
+  padding:15px;margin-top:8px;box-shadow:inset 0 2px 12px rgba(0,0,0,.3)
+}
+.saida pre{
+  white-space:pre-wrap;word-break:break-word;
+  font:500 13px/1.65 var(--mono);color:var(--papel);max-height:300px;overflow:auto
+}
+.saida pre.vazio{color:var(--bruma);font:400 13.5px/1.6 var(--sans)}
+.acoes{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.acoes .btn{flex:1 1 auto;min-width:126px}
+
+.check{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(251,250,247,.06)}
+.check:last-child{border-bottom:0}
+.check input{width:20px;height:20px;accent-color:var(--cyan);flex-shrink:0;margin-top:1px}
+.check span{font-size:14.5px}
+.semaforo{list-style:none}
+.semaforo li{padding:9px 0 9px 28px;position:relative;font-size:14.5px;border-bottom:1px solid rgba(251,250,247,.06)}
+.semaforo li:last-child{border-bottom:0}
+.semaforo li b{font:600 11px var(--mono);letter-spacing:.16em}
+.semaforo li::before{content:"";position:absolute;left:3px;top:15px;width:10px;height:10px;border-radius:50%}
+.semaforo .vd::before{background:#4CAF6D;box-shadow:0 0 10px rgba(76,175,109,.55)}
+.semaforo .am::before{background:var(--ouro);box-shadow:0 0 10px rgba(212,183,131,.55)}
+.semaforo .vm::before{background:#D06A4F;box-shadow:0 0 10px rgba(208,106,79,.55)}
+
+/* ---- dock flutuante: a assinatura da navegação ---- */
+nav{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  width:min(430px, calc(100% - 24px));z-index:50;
+  background:rgba(8,24,33,.74);backdrop-filter:blur(20px) saturate(150%);
+  border:1px solid rgba(251,250,247,.1);border-radius:24px;
+  display:flex;justify-content:space-around;gap:4px;padding:8px;
+  box-shadow:0 22px 48px -14px rgba(0,0,0,.6)
+}
+nav button{
+  background:none;border:0;color:var(--bruma);cursor:pointer;
+  font:600 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 15px;border-radius:17px;transition:color .2s, background .2s;flex:1
+}
+nav button .ic{font-size:17px;line-height:1}
+nav button[aria-selected="true"]{
+  background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 60%,var(--ouro-filete));
+  color:var(--abismo);box-shadow:0 8px 20px -8px rgba(212,183,131,.5)
+}
+nav button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+.aviso{
+  position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(14px);
+  background:rgba(8,24,33,.92);color:var(--papel);padding:12px 22px;border-radius:99px;
+  font:600 13px var(--sans);letter-spacing:.01em;
+  opacity:0;pointer-events:none;transition:.25s;z-index:70;
+  border:1px solid rgba(109,181,181,.4);backdrop-filter:blur(10px);
+  box-shadow:0 0 28px rgba(109,181,181,.2);max-width:88vw;text-align:center
+}
+.aviso.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{color:var(--bruma);font:500 10.5px var(--mono);letter-spacing:.1em;padding:30px 0 8px;text-align:center;line-height:2}
+footer strong{color:var(--ouro);letter-spacing:.2em;text-transform:uppercase}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .aurora{display:none}
+}
+
+/* ================= v4 · capricho ================= */
+
+/* grain de filme sob o conteúdo: mata o banding do gradiente e dá matéria */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E")
+}
+
+/* cascata orquestrada: os blocos da seção entram em sequência */
+main > section{animation:none}
+main > section > *{animation:surge .55s cubic-bezier(.2,.7,.2,1) both}
+main > section > *:nth-child(1){animation-delay:.02s}
+main > section > *:nth-child(2){animation-delay:.06s}
+main > section > *:nth-child(3){animation-delay:.10s}
+main > section > *:nth-child(4){animation-delay:.14s}
+main > section > *:nth-child(5){animation-delay:.18s}
+main > section > *:nth-child(6){animation-delay:.22s}
+main > section > *:nth-child(7){animation-delay:.26s}
+main > section > *:nth-child(n+8){animation-delay:.3s}
+
+/* beijo de champanhe no display — papel com o fim dourado */
+h1{
+  background:linear-gradient(112deg, var(--papel) 58%, var(--ouro-claro) 96%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--papel)
+}
+
+/* números sempre alinhados */
+body{font-variant-numeric:tabular-nums}
+
+/* checkboxes desenhados — o nativo denuncia o sistema operacional */
+input[type=checkbox]{
+  appearance:none;-webkit-appearance:none;
+  width:21px;height:21px;border-radius:7px;cursor:pointer;
+  border:1.5px solid rgba(251,250,247,.25);background:rgba(8,24,33,.45);
+  display:grid;place-content:center;
+  transition:background .2s, border-color .2s, box-shadow .2s
+}
+input[type=checkbox]::before{
+  content:"";width:11px;height:11px;transform:scale(0);
+  transition:transform .16s cubic-bezier(.2,.7,.2,1.4);
+  clip-path:polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background:var(--abismo)
+}
+input[type=checkbox]:checked{
+  background:linear-gradient(180deg,var(--cyan),var(--teal));
+  border-color:var(--cyan);box-shadow:0 0 12px rgba(109,181,181,.35)
+}
+input[type=checkbox]:checked::before{transform:scale(1)}
+input[type=checkbox]:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* botão dourado ganha brilho de topo — champanhe de verdade */
+.btn{box-shadow:0 10px 24px -10px rgba(212,183,131,.45), inset 0 1px 0 rgba(255,255,255,.4)}
+.btn.sec{box-shadow:none}
+
+/* estados vazios com presença, não desamparo */
+.vazio::before{content:"◌  ";color:rgba(109,181,181,.55)}
+
+/* projeto clicável se anuncia */
+.proj{transition:background .15s, transform .15s}
+.proj:hover{transform:translateX(3px)}
+
+/* tecla do método acende com um pulso */
+.campo.ok .letra{transform:scale(1.07)}
+
+/* rolagem do comando gerado, fina e da casa */
+.saida pre::-webkit-scrollbar{width:5px}
+.saida pre::-webkit-scrollbar-thumb{background:rgba(109,181,181,.32);border-radius:99px}
+.saida pre::-webkit-scrollbar-track{background:transparent}
+
+/* seleção de texto na cor da casa */
+::selection{background:rgba(109,181,181,.35);color:var(--papel)}
+
+/* toast entra com um leve pop */
+.aviso{transform:translateX(-50%) translateY(14px) scale(.96)}
+.aviso.on{transform:translateX(-50%) translateY(0) scale(1)}
+
+/* ícones de traço no dock */
+nav .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block}
+nav .ic.tx{font-size:17px;line-height:1}
+
+@media (prefers-reduced-motion:reduce){
+  main > section > *{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header>
+  <div class="env">
+    <span class="sig" aria-hidden="true">⌘</span>
+    <b>Central de Comando</b>
+    <span class="hoje-data" id="data-hoje"></span>
+  </div>
+</header>
+
+<main class="env">
+
+  <!-- ================= HOJE ================= -->
+  <section id="hoje">
+    <h1>O ritual do dia</h1>
+    <p class="lead">Capture, confirme, escolha três, trabalhe, encerre. Doze minutos bem usados protegem o restante do dia.</p>
+
+    <h2>Caixa de entrada <span class="tag">CAPTURE</span></h2>
+    <div class="caixa">
+      <div class="linha-add">
+        <input type="text" id="in-captura" placeholder="O que chegou? Anote como estiver." aria-label="Nova captura">
+        <button class="btn" id="add-captura">Anotar</button>
+      </div>
+      <div id="lista-inbox"></div>
+    </div>
+
+    <h2>As três de hoje <span class="tag">ESCOLHA</span></h2>
+    <div class="prog"><span id="prog-hoje">0 de 3 concluídas</span><span id="dica-hoje"></span></div>
+    <div class="medidor"><i id="barra-hoje"></i></div>
+    <div class="caixa"><div id="lista-hoje"></div></div>
+
+    <h2>Em espera</h2>
+    <div class="caixa"><div id="lista-espera"></div></div>
+
+    <div class="nota">
+      <b>Capacidade real</b>
+      Planeje no máximo 70% a 80% do tempo disponível. O restante absorve transições, dúvidas e imprevistos.
+    </div>
+
+    <h2>Fechar o dia <span class="tag">ENCERRE</span></h2>
+    <div class="caixa" id="bloco-encerrar">
+      <button class="btn sec" id="abrir-encerrar" style="width:100%">Encerrar o dia de hoje</button>
+      <div id="form-encerrar" hidden>
+        <p class="dica" style="margin-bottom:8px">Registre o que avançou, o que travou e qual é a primeira ação de amanhã.</p>
+        <textarea id="enc-avancou" placeholder="O que avançou de verdade hoje?"></textarea>
+        <textarea id="enc-travou" placeholder="O que travou — e de quem depende?" style="margin-top:8px"></textarea>
+        <textarea id="enc-amanha" placeholder="Primeira ação de amanhã (vira captura automática)" style="margin-top:8px"></textarea>
+        <div class="acoes">
+          <button class="btn" id="salvar-encerrar">Registrar e fechar o dia</button>
+          <button class="btn sec" id="cancelar-encerrar">Agora não</button>
+        </div>
+      </div>
+      <div id="ultimo-encerramento"></div>
+    </div>
+  </section>
+
+  <!-- ================= PROJETOS ================= -->
+  <section id="projetos" hidden>
+    <div id="proj-lista-tela">
+      <h1>Projetos</h1>
+      <p class="lead">Cada projeto guarda seu documento-mestre: objetivo, decisões registradas e pendências com dono. Decisão sem registro volta como discussão.</p>
+      <div class="caixa">
+        <div class="linha-add">
+          <input type="text" id="in-projeto" placeholder="Nome do novo projeto" aria-label="Nome do projeto">
+          <button class="btn" id="add-projeto">Criar</button>
+        </div>
+        <div id="lista-projetos"></div>
+      </div>
+    </div>
+
+    <div id="proj-detalhe-tela" hidden>
+      <button class="volta" id="voltar-projetos">← Projetos</button>
+      <h1 id="pd-nome"></h1>
+      <p class="lead" id="pd-atualizado"></p>
+
+      <h2>Objetivo</h2>
+      <div class="caixa"><textarea id="pd-objetivo" placeholder="Qual mudança concreta este projeto produz? Para quem?"></textarea></div>
+
+      <h2>Próxima ação</h2>
+      <div class="caixa"><input type="text" id="pd-proxima" placeholder="Uma ação observável, começando com um verbo"></div>
+
+      <h2>Decisões <span class="tag">ATA</span></h2>
+      <div class="caixa">
+        <input type="text" id="pd-dec-oque" placeholder="O que foi decidido?">
+        <input type="text" id="pd-dec-porque" placeholder="Por quê? Qual evidência sustentou?" style="margin-top:8px">
+        <div class="acoes"><button class="btn mini" id="pd-add-dec">Registrar decisão</button></div>
+        <div id="pd-decisoes"></div>
+      </div>
+
+      <h2>Pendências</h2>
+      <div class="caixa">
+        <div class="linha-add">
+          <input type="text" id="pd-pend-texto" placeholder="O que está pendente — e quem responde?">
+          <button class="btn mini" id="pd-add-pend">Anotar</button>
+        </div>
+        <div id="pd-pendencias"></div>
+      </div>
+
+      <div class="acoes">
+        <button class="btn sec" id="pd-apagar">Apagar projeto</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMANDOS ================= -->
+  <section id="comandos" hidden>
+    <h1>Montar comando</h1>
+    <p class="lead">As sete partes do método. O que ficar em branco é preenchido pelo palpite mais provável da máquina.</p>
+    <div class="prog"><span id="cont-cmd">0 de 7 partes</span></div>
+    <div class="medidor"><i id="barra-cmd"></i></div>
+    <form id="form-cmd"></form>
+
+    <h2>Comando gerado</h2>
+    <div class="saida"><pre id="saida-cmd" class="vazio">Preencha acima e o comando aparece aqui.</pre></div>
+    <div class="acoes">
+      <button class="btn" id="copiar-cmd" disabled>Copiar</button>
+      <button class="btn sec" id="salvar-cmd" disabled>Salvar</button>
+      <button class="btn sec" id="limpar-cmd">Limpar</button>
+    </div>
+
+    <h2>Salvos</h2>
+    <div class="caixa"><div id="lista-cmds"></div></div>
+  </section>
+
+  <!-- ================= GUIA ================= -->
+  <section id="guia" hidden>
+    <h1>Guia do método</h1>
+    <p class="lead">A referência rápida. A lógica completa está na cartilha.</p>
+
+    <h2>Definição de pronto</h2>
+    <div class="caixa" id="guia-pronto"></div>
+
+    <h2>Comando de auditoria</h2>
+    <div class="saida"><pre id="guia-auditoria"></pre></div>
+    <div class="acoes"><button class="btn" id="copiar-aud">Copiar auditoria</button></div>
+
+    <h2>Semáforo — antes de enviar dados</h2>
+    <div class="caixa">
+      <ul class="semaforo">
+        <li class="vd"><b>VERDE</b> — conteúdo público, fictício ou autorizado e minimizado.</li>
+        <li class="am"><b>AMARELO</b> — dados internos; confirme política, acesso e finalidade.</li>
+        <li class="vm"><b>VERMELHO</b> — credenciais, dados pessoais sensíveis, estratégia sigilosa ou arquivo sem autorização.</li>
+      </ul>
+    </div>
+
+    <div class="nota">
+      <b>Regra de ouro</b>
+      Não peça apenas “faça”. Peça “mostre o que fez, o que assumiu, o que falta e como eu valido”.
+    </div>
+
+    <h2>Seus dados</h2>
+    <div class="caixa">
+      <p class="dica" style="margin-bottom:10px">Tudo fica só neste aparelho. O backup baixa um arquivo com prioridades, projetos e comandos — guarde-o onde quiser.</p>
+      <div class="acoes">
+        <button class="btn sec" id="exportar">Baixar backup</button>
+        <button class="btn sec" id="importar">Restaurar backup</button>
+        <input type="file" id="arquivo-import" accept="application/json" hidden>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>Central de Comando</strong><br>
+    ● local · sem nuvem · sem cadastro — nada do que você escreve sai deste aparelho
+  </footer>
+</main>
+
+<nav aria-label="Seções">
+  <button aria-selected="true" data-aba="hoje"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg></span>Hoje</button>
+  <button aria-selected="false" data-aba="projetos"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></span>Projetos</button>
+  <button aria-selected="false" data-aba="comandos"><span class="ic tx" aria-hidden="true">⌘</span>Comandos</button>
+  <button aria-selected="false" data-aba="guia"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5.5C10 4 7 3.5 4 3.5v14c3 0 6 .5 8 2 2-1.5 5-2 8-2v-14c-3 0-6 .5-8 2z"/><path d="M12 5.5v14"/></svg></span>Guia</button>
+</nav>
+
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+<script>
+/* =================================================================
+   Central de Comando — o método operando no dia a dia.
+
+   Fontes de verdade (nada foi inventado aqui):
+   - Ritual do dia .......... cartilha, capítulo 11
+   - Limite de 3 prioridades  cartilha, capítulos 10 e 11
+   - Documento-mestre e ata . Kit de Comando, peças 02 e 08
+   - Montador de comandos ... método C.O.M.A.N.D.O., capítulo 4
+   - Definição de pronto .... capítulo 4 · Semáforo ... capítulos 10 e 26
+
+   Sem servidor e sem cadastro, como o produto prega: tudo vive em
+   localStorage e o backup é um arquivo que a própria pessoa guarda.
+   ================================================================= */
+
+var CHAVE = 'osc.central.v1';
+var $ = function(s){ return document.querySelector(s); };
+
+function estadoInicial(){
+  return {v:1, inbox:[], hoje:[], espera:[], historico:[], projetos:[], comandos:[]};
+}
+function carregar(){
+  try {
+    var s = JSON.parse(localStorage.getItem(CHAVE));
+    if (s && s.v === 1) return s;
+  } catch(e){}
+  return estadoInicial();
+}
+var S = carregar();
+function gravar(){
+  /* Carimbo estritamente crescente: se duas cópias do estado divergirem,
+     a com a gravação mais recente vence. Date.now() sozinho empata quando
+     duas gravações caem no mesmo milissegundo — o +1 garante a ordem. */
+  S.gravadoEm = Math.max(Date.now(), (S.gravadoEm || 0) + 1);
+  try { localStorage.setItem(CHAVE, JSON.stringify(S)); }
+  catch(e){ avisar('Sem espaço para salvar neste aparelho.'); }
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function esc(t){
+  var d = document.createElement('div'); d.textContent = t; return d.innerHTML;
+}
+
+function avisar(msg){
+  var a = $('#aviso');
+  a.textContent = msg; a.classList.add('on');
+  clearTimeout(a._t); a._t = setTimeout(function(){ a.classList.remove('on'); }, 2100);
+}
+
+/* ---------------- HOJE ---------------- */
+
+$('#data-hoje').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'short', day:'2-digit', month:'short'});
+
+function renderInbox(){
+  var alvo = $('#lista-inbox');
+  if (!S.inbox.length){
+    alvo.innerHTML = '<p class="vazio">Vazio. A cabeça agradece — o que chegar, anote aqui antes de decidir.</p>';
+    return;
+  }
+  alvo.innerHTML = S.inbox.map(function(i){
+    return '<div class="item"><span class="tx">' + esc(i.texto) + '</span>' +
+      '<span class="acs">' +
+        '<button class="btn mini" data-hoje="' + i.id + '">→ Hoje</button>' +
+        '<button class="btn mini sec" data-espera="' + i.id + '">Espera</button>' +
+        '<button class="btn mini sec" data-del-inbox="' + i.id + '">×</button>' +
+      '</span></div>';
+  }).join('');
+}
+
+function renderHoje(){
+  var alvo = $('#lista-hoje');
+  if (!S.hoje.length){
+    alvo.innerHTML = '<p class="vazio">Escolha até três resultados na caixa de entrada. Três, não quinze intenções.</p>';
+  } else {
+    alvo.innerHTML = S.hoje.map(function(i){
+      return '<div class="item' + (i.feito ? ' feito' : '') + '">' +
+        '<input type="checkbox" data-feito="' + i.id + '"' + (i.feito ? ' checked' : '') + ' aria-label="Concluir">' +
+        '<span class="tx">' + esc(i.texto) + '</span>' +
+        '<span class="acs"><button class="btn mini sec" data-devolve="' + i.id + '">↩</button></span></div>';
+    }).join('');
+  }
+  var n = S.hoje.filter(function(i){ return i.feito; }).length;
+  $('#prog-hoje').textContent = n + ' de ' + S.hoje.length + ' concluída' + (n === 1 ? '' : 's');
+  $('#barra-hoje').style.width = S.hoje.length ? (n / S.hoje.length * 100) + '%' : '0';
+  $('#dica-hoje').textContent = S.hoje.length === 3 ? 'dia com forma' : '';
+}
+
+function renderEspera(){
+  var alvo = $('#lista-espera');
+  if (!S.espera.length){
+    alvo.innerHTML = '<p class="vazio">Nada em espera.</p>';
+    return;
+  }
+  alvo.innerHTML = S.espera.map(function(i){
+    return '<div class="item"><span class="tx">' + esc(i.texto) + '</span>' +
+      '<span class="acs">' +
+        '<button class="btn mini" data-hoje-esp="' + i.id + '">→ Hoje</button>' +
+        '<button class="btn mini sec" data-del-esp="' + i.id + '">×</button>' +
+      '</span></div>';
+  }).join('');
+}
+
+function renderUltimoDia(){
+  var alvo = $('#ultimo-encerramento');
+  if (!S.historico.length){ alvo.innerHTML = ''; return; }
+  var u = S.historico[0];
+  alvo.innerHTML = '<div class="nota" style="margin:14px 0 0"><b>Último fechamento — ' + esc(u.data) + '</b>' +
+    (u.avancou ? 'Avançou: ' + esc(u.avancou) + '<br>' : '') +
+    (u.amanha ? 'Primeira ação registrada para hoje.' : '') + '</div>';
+}
+
+function addCaptura(){
+  var t = $('#in-captura').value.trim();
+  if (!t) return;
+  S.inbox.unshift({id: uid(), texto: t});
+  $('#in-captura').value = '';
+  gravar(); renderInbox();
+}
+$('#add-captura').addEventListener('click', addCaptura);
+$('#in-captura').addEventListener('keydown', function(e){ if (e.key === 'Enter') addCaptura(); });
+
+$('#lista-inbox').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  var id = b.dataset.hoje || b.dataset.espera || b.dataset.delInbox;
+  var idx = S.inbox.findIndex(function(i){ return i.id === id; });
+  if (idx < 0) return;
+  if (b.dataset.hoje !== undefined){
+    /* O limite de três é do método, não do app. Não é configurável. */
+    if (S.hoje.length >= 3){
+      avisar('O método manda escolher três. Conclua ou devolva uma antes.');
+      return;
+    }
+    S.hoje.push({id: uid(), texto: S.inbox[idx].texto, feito: false});
+  } else if (b.dataset.espera !== undefined){
+    S.espera.unshift({id: uid(), texto: S.inbox[idx].texto});
+  }
+  S.inbox.splice(idx, 1);
+  gravar(); renderInbox(); renderHoje(); renderEspera();
+});
+
+$('#lista-hoje').addEventListener('click', function(e){
+  if (e.target.dataset && e.target.dataset.feito){
+    var it = S.hoje.find(function(i){ return i.id === e.target.dataset.feito; });
+    if (it){ it.feito = e.target.checked; gravar(); renderHoje(); }
+    return;
+  }
+  var b = e.target.closest('button'); if (!b || b.dataset.devolve === undefined) return;
+  var idx = S.hoje.findIndex(function(i){ return i.id === b.dataset.devolve; });
+  if (idx < 0) return;
+  S.espera.unshift({id: uid(), texto: S.hoje[idx].texto});
+  S.hoje.splice(idx, 1);
+  gravar(); renderHoje(); renderEspera();
+});
+
+$('#lista-espera').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  var id = b.dataset.hojeEsp || b.dataset.delEsp;
+  var idx = S.espera.findIndex(function(i){ return i.id === id; });
+  if (idx < 0) return;
+  if (b.dataset.hojeEsp !== undefined){
+    if (S.hoje.length >= 3){ avisar('O método manda escolher três. Conclua ou devolva uma antes.'); return; }
+    S.hoje.push({id: uid(), texto: S.espera[idx].texto, feito: false});
+  }
+  S.espera.splice(idx, 1);
+  gravar(); renderHoje(); renderEspera();
+});
+
+$('#abrir-encerrar').addEventListener('click', function(){
+  $('#form-encerrar').hidden = false;
+  $('#abrir-encerrar').hidden = true;
+});
+$('#cancelar-encerrar').addEventListener('click', function(){
+  $('#form-encerrar').hidden = true;
+  $('#abrir-encerrar').hidden = false;
+});
+$('#salvar-encerrar').addEventListener('click', function(){
+  var concluidas = S.hoje.filter(function(i){ return i.feito; }).map(function(i){ return i.texto; });
+  var amanha = $('#enc-amanha').value.trim();
+  S.historico.unshift({
+    data: new Date().toLocaleDateString('pt-BR'),
+    avancou: $('#enc-avancou').value.trim(),
+    travou: $('#enc-travou').value.trim(),
+    amanha: amanha,
+    concluidas: concluidas
+  });
+  /* Concluídas saem; as abertas voltam para a espera — amanhã se escolhe de novo. */
+  S.hoje.filter(function(i){ return !i.feito; }).forEach(function(i){
+    S.espera.unshift({id: uid(), texto: i.texto});
+  });
+  S.hoje = [];
+  if (amanha) S.inbox.unshift({id: uid(), texto: amanha});
+  ['enc-avancou','enc-travou','enc-amanha'].forEach(function(id){ $('#'+id).value = ''; });
+  $('#form-encerrar').hidden = true;
+  $('#abrir-encerrar').hidden = false;
+  gravar(); renderHoje(); renderEspera(); renderInbox(); renderUltimoDia();
+  avisar('Dia registrado. As abertas voltaram para a espera.');
+});
+
+/* ---------------- PROJETOS ---------------- */
+
+var projetoAberto = null;
+
+function renderProjetos(){
+  var alvo = $('#lista-projetos');
+  if (!S.projetos.length){
+    alvo.innerHTML = '<p class="vazio">Nenhum projeto. Crie um e ele ganha documento-mestre: objetivo, decisões e pendências.</p>';
+    return;
+  }
+  alvo.innerHTML = S.projetos.map(function(p){
+    return '<div class="item proj" data-abre="' + p.id + '"><span class="tx"><h3>' + esc(p.nome) + '</h3>' +
+      '<span class="meta">' + p.decisoes.length + ' decis' + (p.decisoes.length === 1 ? 'ão' : 'ões') +
+      ' · ' + p.pendencias.filter(function(x){ return !x.feito; }).length + ' pendência(s) aberta(s)</span></span></div>';
+  }).join('');
+}
+
+$('#add-projeto').addEventListener('click', function(){
+  var n = $('#in-projeto').value.trim();
+  if (!n) return;
+  S.projetos.unshift({id: uid(), nome: n, objetivo: '', proxima: '', decisoes: [], pendencias: [], atualizado: Date.now()});
+  $('#in-projeto').value = '';
+  gravar(); renderProjetos();
+});
+
+$('#lista-projetos').addEventListener('click', function(e){
+  var el = e.target.closest('[data-abre]'); if (!el) return;
+  abrirProjeto(el.dataset.abre);
+});
+
+function abrirProjeto(id){
+  projetoAberto = S.projetos.find(function(p){ return p.id === id; });
+  if (!projetoAberto) return;
+  $('#proj-lista-tela').hidden = true;
+  $('#proj-detalhe-tela').hidden = false;
+  $('#pd-nome').textContent = projetoAberto.nome;
+  $('#pd-objetivo').value = projetoAberto.objetivo;
+  $('#pd-proxima').value = projetoAberto.proxima;
+  renderDetalheProjeto();
+}
+
+function tocaProjeto(){
+  if (!projetoAberto) return;
+  projetoAberto.atualizado = Date.now();
+  gravar(); renderDetalheProjeto();
+}
+
+function renderDetalheProjeto(){
+  $('#pd-atualizado').textContent = 'Atualizado em ' +
+    new Date(projetoAberto.atualizado).toLocaleDateString('pt-BR') + ' às ' +
+    new Date(projetoAberto.atualizado).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  var d = $('#pd-decisoes');
+  d.innerHTML = projetoAberto.decisoes.length
+    ? projetoAberto.decisoes.map(function(x){
+        return '<div class="decisao"><strong>' + esc(x.oque) + '</strong>' +
+          (x.porque ? '<div class="pq">' + esc(x.porque) + '</div>' : '') +
+          '<time>' + esc(x.quando) + '</time></div>';
+      }).join('')
+    : '<p class="vazio" style="margin-top:8px">Nenhuma decisão registrada. Decisão sem registro volta como discussão.</p>';
+  var p = $('#pd-pendencias');
+  p.innerHTML = projetoAberto.pendencias.length
+    ? projetoAberto.pendencias.map(function(x){
+        return '<div class="item' + (x.feito ? ' feito' : '') + '">' +
+          '<input type="checkbox" data-pend="' + x.id + '"' + (x.feito ? ' checked' : '') + ' aria-label="Resolver">' +
+          '<span class="tx">' + esc(x.texto) + '</span></div>';
+      }).join('')
+    : '<p class="vazio">Nenhuma pendência.</p>';
+}
+
+$('#pd-objetivo').addEventListener('change', function(){
+  if (projetoAberto){ projetoAberto.objetivo = this.value.trim(); tocaProjeto(); }
+});
+$('#pd-proxima').addEventListener('change', function(){
+  if (projetoAberto){ projetoAberto.proxima = this.value.trim(); tocaProjeto(); }
+});
+$('#pd-add-dec').addEventListener('click', function(){
+  var oque = $('#pd-dec-oque').value.trim();
+  if (!oque || !projetoAberto) return;
+  projetoAberto.decisoes.unshift({
+    id: uid(), oque: oque, porque: $('#pd-dec-porque').value.trim(),
+    quando: new Date().toLocaleDateString('pt-BR')
+  });
+  $('#pd-dec-oque').value = ''; $('#pd-dec-porque').value = '';
+  tocaProjeto(); avisar('Decisão registrada');
+});
+$('#pd-add-pend').addEventListener('click', function(){
+  var t = $('#pd-pend-texto').value.trim();
+  if (!t || !projetoAberto) return;
+  projetoAberto.pendencias.unshift({id: uid(), texto: t, feito: false});
+  $('#pd-pend-texto').value = '';
+  tocaProjeto();
+});
+$('#pd-pendencias').addEventListener('click', function(e){
+  if (!e.target.dataset || !e.target.dataset.pend || !projetoAberto) return;
+  var x = projetoAberto.pendencias.find(function(i){ return i.id === e.target.dataset.pend; });
+  if (x){ x.feito = e.target.checked; tocaProjeto(); }
+});
+$('#pd-apagar').addEventListener('click', function(){
+  if (!projetoAberto || !confirm('Apagar o projeto "' + projetoAberto.nome + '" e tudo dentro dele?')) return;
+  S.projetos = S.projetos.filter(function(p){ return p.id !== projetoAberto.id; });
+  projetoAberto = null;
+  gravar(); voltarProjetos();
+});
+function voltarProjetos(){
+  $('#proj-detalhe-tela').hidden = true;
+  $('#proj-lista-tela').hidden = false;
+  renderProjetos();
+}
+$('#voltar-projetos').addEventListener('click', voltarProjetos);
+
+/* ---------------- COMANDOS ---------------- */
+
+var PARTES = [
+  {k:'contexto',   l:'C', rot:'CONTEXTO',        dica:'onde você está, o que já existe e por que isso importa'},
+  {k:'objetivo',   l:'O', rot:'OBJETIVO',        dica:'qual mudança concreta deseja produzir'},
+  {k:'modo',       l:'M', rot:'MODO DE ATUAÇÃO', dica:'que papel a IA deve assumir nesta etapa'},
+  {k:'audiencia',  l:'A', rot:'AUDIÊNCIA',       dica:'para quem será a entrega'},
+  {k:'normas',     l:'N', rot:'NORMAS E LIMITES',dica:'prazo, orçamento, regras, riscos e o que não fazer'},
+  {k:'detalhe',    l:'D', rot:'DETALHAMENTO',    dica:'formato, tamanho, exemplos e critérios de qualidade'},
+  {k:'otimizacao', l:'O', rot:'OTIMIZAÇÃO',      dica:'como avaliar, corrigir e chegar à próxima versão'}
+];
+
+var formCmd = $('#form-cmd');
+PARTES.forEach(function(p){
+  var d = document.createElement('div');
+  d.className = 'campo';
+  d.id = 'campo-' + p.k;
+  d.innerHTML =
+    '<label for="in-' + p.k + '">' +
+      '<span class="letra" aria-hidden="true">' + p.l + '</span>' +
+      '<span><span class="rot">' + p.rot + '</span><span class="dica">' + p.dica + '</span></span>' +
+    '</label>' +
+    '<textarea id="in-' + p.k + '" rows="2"></textarea>';
+  formCmd.appendChild(d);
+});
+
+function valoresCmd(){
+  var v = {};
+  PARTES.forEach(function(p){ v[p.k] = $('#in-' + p.k).value.trim(); });
+  return v;
+}
+function gerarCmd(v){
+  var linhas = [];
+  PARTES.forEach(function(p){ if (v[p.k]) linhas.push(p.rot + ': ' + v[p.k]); });
+  if (!linhas.length) return '';
+  linhas.push('');
+  linhas.push('Antes de entregar: mostre o que fez, o que assumiu, o que ainda falta e como eu valido.');
+  return linhas.join('\n');
+}
+function atualizarCmd(){
+  var v = valoresCmd(), n = 0;
+  PARTES.forEach(function(p){
+    var el = $('#campo-' + p.k);
+    if (v[p.k]){ el.classList.add('ok'); n++; } else { el.classList.remove('ok'); }
+  });
+  $('#cont-cmd').textContent = n + ' de 7 partes';
+  $('#barra-cmd').style.width = (n/7*100) + '%';
+  var txt = gerarCmd(v), saida = $('#saida-cmd');
+  if (txt){ saida.textContent = txt; saida.classList.remove('vazio'); }
+  else { saida.textContent = 'Preencha acima e o comando aparece aqui.'; saida.classList.add('vazio'); }
+  $('#copiar-cmd').disabled = !txt;
+  $('#salvar-cmd').disabled = !txt;
+}
+formCmd.addEventListener('input', atualizarCmd);
+
+function copiar(texto, msg){
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(texto).then(function(){ avisar(msg); }, function(){ copiarFallback(texto, msg); });
+  } else copiarFallback(texto, msg);
+}
+function copiarFallback(texto, msg){
+  var t = document.createElement('textarea');
+  t.value = texto; t.style.position = 'fixed'; t.style.opacity = '0';
+  document.body.appendChild(t); t.select();
+  try { document.execCommand('copy'); avisar(msg); }
+  catch(e){ avisar('Não consegui copiar — selecione o texto.'); }
+  document.body.removeChild(t);
+}
+
+$('#copiar-cmd').addEventListener('click', function(){ copiar(gerarCmd(valoresCmd()), 'Comando copiado'); });
+$('#limpar-cmd').addEventListener('click', function(){
+  if (!confirm('Limpar os sete campos?')) return;
+  PARTES.forEach(function(p){ $('#in-' + p.k).value = ''; });
+  atualizarCmd();
+});
+$('#salvar-cmd').addEventListener('click', function(){
+  var v = valoresCmd();
+  var nome = prompt('Nome deste comando:', v.objetivo ? v.objetivo.slice(0, 42) : 'Sem título');
+  if (nome === null) return;
+  S.comandos.unshift({id: uid(), nome: nome || 'Sem título', quando: Date.now(), campos: v});
+  gravar(); renderCmds(); avisar('Salvo neste aparelho');
+});
+
+function renderCmds(){
+  var alvo = $('#lista-cmds');
+  if (!S.comandos.length){
+    alvo.innerHTML = '<p class="vazio">Nenhum comando salvo.</p>';
+    return;
+  }
+  alvo.innerHTML = S.comandos.map(function(c){
+    return '<div class="item"><span class="tx"><strong>' + esc(c.nome) + '</strong><br>' +
+      '<span class="dica">' + new Date(c.quando).toLocaleDateString('pt-BR') + '</span></span>' +
+      '<span class="acs">' +
+        '<button class="btn mini" data-abre-cmd="' + c.id + '">Abrir</button>' +
+        '<button class="btn mini sec" data-copia-cmd="' + c.id + '">Copiar</button>' +
+        '<button class="btn mini sec" data-del-cmd="' + c.id + '">×</button>' +
+      '</span></div>';
+  }).join('');
+}
+$('#lista-cmds').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  var id = b.dataset.abreCmd || b.dataset.copiaCmd || b.dataset.delCmd;
+  var c = S.comandos.find(function(x){ return x.id === id; });
+  if (!c) return;
+  if (b.dataset.abreCmd !== undefined){
+    PARTES.forEach(function(p){ $('#in-' + p.k).value = c.campos[p.k] || ''; });
+    atualizarCmd(); avisar('Comando carregado');
+  } else if (b.dataset.copiaCmd !== undefined){
+    copiar(gerarCmd(c.campos), 'Comando copiado');
+  } else {
+    if (!confirm('Apagar este comando?')) return;
+    S.comandos = S.comandos.filter(function(x){ return x.id !== id; });
+    gravar(); renderCmds();
+  }
+});
+
+/* ---------------- GUIA ---------------- */
+
+var PRONTO = [
+  'O objetivo principal pode ser identificado em cinco segundos.',
+  'Nenhuma informação foi inventada ou tratada como confirmada sem fonte.',
+  'A entrega funciona no formato solicitado e para o público definido.',
+  'Pendências, riscos e decisões humanas estão visíveis.',
+  'A versão foi testada, lida e aprovada por quem responde pelo projeto.'
+];
+$('#guia-pronto').innerHTML = PRONTO.map(function(t, i){
+  return '<label class="check"><input type="checkbox"><span>' + t + '</span></label>';
+}).join('');
+
+var AUDITORIA =
+'Compare esta versão com o objetivo, o público, as decisões aprovadas e a definição de pronto. ' +
+'Liste: acertos, desvios, fatos sem fonte, riscos, pendências e o comando exato para a próxima etapa. ' +
+'Não reescreva ainda.';
+$('#guia-auditoria').textContent = AUDITORIA;
+$('#copiar-aud').addEventListener('click', function(){ copiar(AUDITORIA, 'Auditoria copiada'); });
+
+/* backup: o dado é da pessoa; o arquivo é a garantia de que ela nunca o perde */
+$('#exportar').addEventListener('click', function(){
+  var blob = new Blob([JSON.stringify(S, null, 2)], {type: 'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'central-de-comando-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+  avisar('Backup baixado');
+});
+$('#importar').addEventListener('click', function(){ $('#arquivo-import').click(); });
+$('#arquivo-import').addEventListener('change', function(){
+  var f = this.files[0]; if (!f) return;
+  var leitor = new FileReader();
+  leitor.onload = function(){
+    try {
+      var dados = JSON.parse(leitor.result);
+      if (!dados || dados.v !== 1 || !Array.isArray(dados.projetos)) throw new Error('formato');
+      if (!confirm('Substituir tudo que está neste aparelho pelo backup?')) return;
+      S = dados; gravar(); renderTudo(); avisar('Backup restaurado');
+    } catch(e){ avisar('Arquivo inválido — este não é um backup da Central.'); }
+  };
+  leitor.readAsText(f);
+  this.value = '';
+});
+
+/* ---------------- NAVEGAÇÃO ---------------- */
+
+function trocar(nome){
+  ['hoje','projetos','comandos','guia'].forEach(function(n){ $('#' + n).hidden = (n !== nome); });
+  document.querySelectorAll('nav button').forEach(function(b){
+    b.setAttribute('aria-selected', String(b.dataset.aba === nome));
+  });
+  if (nome === 'projetos' && !projetoAberto) voltarProjetos();
+  window.scrollTo({top: 0});
+}
+document.querySelectorAll('nav button').forEach(function(b){
+  b.addEventListener('click', function(){ trocar(b.dataset.aba); });
+});
+
+function renderTudo(){
+  renderInbox(); renderHoje(); renderEspera(); renderUltimoDia();
+  renderProjetos(); renderCmds(); atualizarCmd();
+}
+renderTudo();
+
+/* Se o app estiver aberto em duas abas, uma pode gravar por cima da outra
+   com dados velhos. O evento 'storage' avisa quando outra instância grava:
+   recarregamos o estado e religamos a referência do projeto aberto, para
+   nenhuma edição cair num objeto descartado. */
+window.addEventListener('storage', function(e){
+  if (e.key !== CHAVE) return;
+  var abertoId = projetoAberto && projetoAberto.id;
+  S = carregar();
+  projetoAberto = abertoId
+    ? S.projetos.find(function(p){ return p.id === abertoId; }) || null
+    : null;
+  renderTudo();
+  if (projetoAberto) renderDetalheProjeto();
+  else if (!$('#proj-detalhe-tela').hidden) voltarProjetos();
+});
+
+/* Em recarga muito rápida, o app pode ler o storage antes de a última
+   gravação da sessão anterior assentar. Se existir uma cópia com carimbo
+   mais novo, ela vence. Roda meio segundo após a carga E sempre que a aba
+   volta ao foco — abas em segundo plano têm timers estrangulados pelo
+   navegador, então o foco é o gatilho confiável. */
+function adotaMaisNovo(){
+  try {
+    var st = JSON.parse(localStorage.getItem(CHAVE));
+    if (st && st.v === 1 && (st.gravadoEm || 0) > (S.gravadoEm || 0)){
+      S = st; renderTudo();
+    }
+  } catch(e){}
+}
+setTimeout(adotaMaisNovo, 500);
+document.addEventListener('visibilitychange', function(){
+  if (!document.hidden) adotaMaisNovo();
+});
+
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>

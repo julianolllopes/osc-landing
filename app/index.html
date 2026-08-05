@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Painel de Comando — O Segredo do Comando</title>
+<meta name="description" content="Monte comandos completos pelo método C.O.M.A.N.D.O. Funciona no celular, sem cadastro e sem internet.">
+<meta name="theme-color" content="#102A33">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102A33'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23D4B783' font-family='system-ui'%3E%E2%8C%98%3C/text%3E%3C/svg%3E">
+<style>
+/* =================================================================
+   PAINEL DE COMANDO — linguagem "presença" (D-024, modo instrumento)
+
+   A mesma voz visual da Central: aurora viva, vidro, display fino,
+   dourado raro, grain. O Painel é a porta de entrada — precisa ter a
+   cara do produto que apresenta. Escuro por decisão, como todo
+   instrumento da marca.
+   ================================================================= */
+:root{
+  --abismo:#081821; --navy:#102A33; --papel:#FBFAF7;
+  --ouro:#D4B783; --ouro-claro:#EADDC7; --ouro-filete:#B58A4B;
+  --cyan:#6DB5B5; --teal:#176D66; --bruma:#9FB0AE;
+  --texto:var(--papel); --suave:var(--bruma); --acento:var(--cyan); --dourado:var(--ouro);
+  --vidro:rgba(251,250,247,.05); --vidro-borda:rgba(251,250,247,.08);
+  --poco:rgba(8,24,33,.55);
+  --mono:ui-monospace,'SF Mono','Cascadia Code',Consolas,'Roboto Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  background:linear-gradient(180deg,var(--abismo) 0%,var(--navy) 55%,var(--abismo) 100%);
+  background-attachment:fixed;color:var(--texto);
+  font:400 16px/1.6 var(--sans);font-variant-numeric:tabular-nums;
+  padding-bottom:56px;min-height:100svh
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E")
+}
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;filter:blur(64px) saturate(130%)}
+.aurora i{position:absolute;border-radius:50%}
+.aurora i:nth-child(1){width:58vmax;height:58vmax;left:-20vmax;top:-26vmax;opacity:.17;
+  background:radial-gradient(circle,var(--teal),transparent 64%);animation:d1 26s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:46vmax;height:46vmax;right:-16vmax;top:6vmax;opacity:.11;
+  background:radial-gradient(circle,var(--ouro),transparent 62%);animation:d2 34s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:52vmax;height:52vmax;left:20vw;bottom:-30vmax;opacity:.13;
+  background:radial-gradient(circle,var(--cyan),transparent 64%);animation:d3 22s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(9vmax,7vmax) scale(1.12)}}
+@keyframes d2{to{transform:translate(-7vmax,11vmax) scale(.93)}}
+@keyframes d3{to{transform:translate(7vmax,-9vmax) scale(1.09)}}
+main,header{position:relative;z-index:1}
+.env{max-width:760px;margin:0 auto;padding:0 18px}
+
+header{
+  position:sticky;top:0;z-index:30;padding:12px 0;
+  background:linear-gradient(180deg, rgba(8,24,33,.85), rgba(8,24,33,.6) 70%, transparent);
+  backdrop-filter:blur(14px) saturate(140%)
+}
+header .env{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.marca{display:flex;align-items:center;gap:10px}
+.marca span:first-child{
+  width:30px;height:30px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ouro);font-size:14px;line-height:1;
+  background:radial-gradient(circle at 35% 30%, rgba(212,183,131,.30), rgba(109,181,181,.10) 60%, transparent 75%);
+  box-shadow:0 0 18px rgba(212,183,131,.22), inset 0 0 10px rgba(109,181,181,.16);
+  animation:respira 4.6s ease-in-out infinite
+}
+@keyframes respira{50%{box-shadow:0 0 26px rgba(212,183,131,.38), inset 0 0 12px rgba(109,181,181,.26);transform:scale(1.05)}}
+.marca b{font:600 11px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--papel)}
+
+.abas{
+  display:flex;gap:4px;background:rgba(8,24,33,.55);
+  border:1px solid rgba(251,250,247,.1);padding:4px;border-radius:99px
+}
+.abas button{
+  background:none;border:0;color:var(--bruma);cursor:pointer;
+  font:600 12px var(--sans);letter-spacing:.03em;
+  padding:8px 14px;border-radius:99px;transition:color .2s, background .2s
+}
+.abas button[aria-selected="true"]{
+  background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 60%,var(--ouro-filete));
+  color:var(--abismo);box-shadow:0 6px 16px -6px rgba(212,183,131,.5)
+}
+.abas button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+main > section > *{animation:surge .55s cubic-bezier(.2,.7,.2,1) both}
+main > section > *:nth-child(1){animation-delay:.02s}
+main > section > *:nth-child(2){animation-delay:.06s}
+main > section > *:nth-child(3){animation-delay:.10s}
+main > section > *:nth-child(4){animation-delay:.14s}
+main > section > *:nth-child(5){animation-delay:.18s}
+main > section > *:nth-child(6){animation-delay:.22s}
+main > section > *:nth-child(n+7){animation-delay:.26s}
+@keyframes surge{from{opacity:0;transform:translateY(16px)}}
+
+h1{
+  font:200 32px/1.15 var(--sans);letter-spacing:-.02em;margin:26px 0 5px;
+  background:linear-gradient(112deg, var(--papel) 58%, var(--ouro-claro) 96%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--papel)
+}
+.lead{color:var(--suave);font-size:14.5px;margin-bottom:20px;max-width:52ch}
+h2{font:600 10.5px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:rgba(212,183,131,.9);margin:26px 0 10px}
+
+.campo{
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:15px;
+  padding:13px;margin-bottom:9px;transition:border-color .25s, box-shadow .25s
+}
+.campo.ok{border-color:rgba(109,181,181,.5);box-shadow:0 0 22px rgba(109,181,181,.1)}
+.campo > label{display:flex;align-items:flex-start;gap:11px;cursor:pointer}
+.letra{
+  flex:0 0 auto;width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(212,183,131,.4);
+  background:radial-gradient(circle at 38% 30%, rgba(212,183,131,.16), transparent 70%);
+  color:var(--ouro);display:flex;align-items:center;justify-content:center;
+  font:700 12.5px var(--mono);margin-top:1px;transition:all .25s
+}
+.campo.ok .letra{background:var(--cyan);border-color:var(--cyan);color:var(--abismo);box-shadow:0 0 14px rgba(109,181,181,.45);transform:scale(1.07)}
+.rot{font:600 13px var(--sans);letter-spacing:.06em;display:block;color:var(--papel)}
+.dica{font-size:12.5px;color:var(--suave);display:block;margin-top:1px}
+textarea{
+  width:100%;margin-top:10px;background:var(--poco);color:var(--texto);
+  border:1px solid rgba(251,250,247,.08);border-radius:13px;padding:11px 13px;
+  font:inherit;font-size:14.5px;resize:vertical;min-height:58px;
+  transition:border-color .2s, box-shadow .2s
+}
+textarea:focus{outline:none;border-color:rgba(109,181,181,.65);box-shadow:0 0 0 3px rgba(109,181,181,.14)}
+textarea::placeholder{color:var(--bruma);opacity:.55}
+
+.saida{
+  background:var(--poco);border:1px solid rgba(251,250,247,.07);border-radius:15px;
+  padding:15px;margin-top:8px;box-shadow:inset 0 2px 12px rgba(0,0,0,.3)
+}
+.saida pre{white-space:pre-wrap;word-break:break-word;font:500 13px/1.65 var(--mono);color:var(--papel);max-height:340px;overflow:auto}
+.saida pre.vazio{color:var(--bruma);font:400 13.5px/1.6 var(--sans)}
+.saida pre::-webkit-scrollbar{width:5px}
+.saida pre::-webkit-scrollbar-thumb{background:rgba(109,181,181,.32);border-radius:99px}
+.saida .vazio{color:var(--bruma);font-style:normal}
+
+.acoes{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{
+  background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 55%,var(--ouro-filete));
+  color:var(--abismo);border:0;border-radius:99px;
+  padding:12px 18px;font:700 13.5px var(--sans);letter-spacing:.01em;
+  cursor:pointer;flex:1 1 auto;min-width:126px;
+  box-shadow:0 10px 24px -10px rgba(212,183,131,.45), inset 0 1px 0 rgba(255,255,255,.4);
+  transition:transform .15s, box-shadow .15s
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.sec{background:rgba(251,250,247,.06);color:var(--papel);border:1px solid rgba(251,250,247,.12);box-shadow:none;font-weight:600}
+.btn.sec:hover{background:rgba(251,250,247,.1)}
+.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+
+.contagem{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.contagem span:first-child{font:200 26px/1 var(--sans);letter-spacing:-.01em;color:var(--papel)}
+.contagem span:last-child{font:600 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ouro)}
+.medidor{height:3px;border-radius:99px;overflow:hidden;margin:0 0 18px;background:rgba(251,250,247,.08)}
+.medidor i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--ouro));box-shadow:0 0 14px rgba(109,181,181,.5);transition:width .3s ease}
+
+.check{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(251,250,247,.06)}
+.check:last-child{border-bottom:0}
+.check span{font-size:14.5px}
+input[type=checkbox]{
+  appearance:none;-webkit-appearance:none;
+  width:21px;height:21px;border-radius:7px;cursor:pointer;flex-shrink:0;margin-top:1px;
+  border:1.5px solid rgba(251,250,247,.25);background:rgba(8,24,33,.45);
+  display:grid;place-content:center;
+  transition:background .2s, border-color .2s, box-shadow .2s
+}
+input[type=checkbox]::before{
+  content:"";width:11px;height:11px;transform:scale(0);
+  transition:transform .16s cubic-bezier(.2,.7,.2,1.4);
+  clip-path:polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background:var(--abismo)
+}
+input[type=checkbox]:checked{background:linear-gradient(180deg,var(--cyan),var(--teal));border-color:var(--cyan);box-shadow:0 0 12px rgba(109,181,181,.35)}
+input[type=checkbox]:checked::before{transform:scale(1)}
+input[type=checkbox]:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+.salvo{
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:15px;
+  padding:14px;margin-bottom:10px;
+  box-shadow:0 18px 36px -18px rgba(0,0,0,.5), inset 0 1px 0 rgba(251,250,247,.06)
+}
+.salvo h3{font:500 15.5px var(--sans);margin-bottom:2px;color:var(--papel)}
+.salvo time{font:500 10.5px var(--mono);letter-spacing:.1em;color:var(--bruma)}
+.salvo .acoes{margin-top:11px}
+.salvo .btn{padding:9px 13px;font-size:12.5px;min-width:0}
+
+.nota{
+  background:rgba(212,183,131,.06);border:1px solid rgba(212,183,131,.14);
+  border-radius:16px;padding:13px 15px;font-size:13.5px;margin:18px 0
+}
+.nota b{display:block;font:600 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px}
+
+/* a ponte para a cartilha: o momento dourado do app */
+.ponte{
+  background:linear-gradient(135deg, rgba(212,183,131,.12), rgba(109,181,181,.06));
+  border:1px solid rgba(212,183,131,.28);border-radius:18px;
+  padding:17px;margin:20px 0;
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.5), inset 0 1px 0 rgba(251,250,247,.08)
+}
+.ponte b{display:block;font:600 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:6px}
+.ponte p{font-size:14.5px;margin-bottom:13px}
+.ponte a{
+  display:inline-block;background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 55%,var(--ouro-filete));
+  color:var(--abismo);font:700 14px var(--sans);padding:12px 18px;border-radius:99px;text-decoration:none;
+  box-shadow:0 10px 24px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.4);
+  transition:transform .15s
+}
+.ponte a:hover{transform:translateY(-1px)}
+.ponte a:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.ponte span{display:block;font:500 11px var(--mono);letter-spacing:.08em;color:var(--bruma);margin-top:9px}
+p a{color:var(--acento);font-weight:600}
+
+.aviso{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px) scale(.96);
+  background:rgba(8,24,33,.92);color:var(--papel);padding:12px 22px;border-radius:99px;
+  font:600 13px var(--sans);opacity:0;pointer-events:none;transition:.25s;z-index:70;
+  border:1px solid rgba(109,181,181,.4);backdrop-filter:blur(10px);
+  box-shadow:0 0 28px rgba(109,181,181,.2);max-width:88vw;text-align:center
+}
+.aviso.on{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+
+footer{color:var(--bruma);font:500 10.5px var(--mono);letter-spacing:.1em;padding:30px 0 8px;text-align:center;line-height:2}
+footer strong{color:var(--ouro);letter-spacing:.2em;text-transform:uppercase}
+::selection{background:rgba(109,181,181,.35);color:var(--papel)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.aurora{display:none}}
+@media (max-width:430px){
+  header .env{flex-wrap:wrap;justify-content:center}
+  .abas{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header>
+  <div class="env">
+    <div class="marca"><span>⌘</span><b>Painel de Comando</b></div>
+    <div class="abas" role="tablist">
+      <button role="tab" aria-selected="true" data-aba="montar">Montar</button>
+      <button role="tab" aria-selected="false" data-aba="conferir">Conferir</button>
+      <button role="tab" aria-selected="false" data-aba="salvos">Salvos</button>
+    </div>
+  </div>
+</header>
+
+<main class="env">
+
+  <!-- ---------------- MONTAR ---------------- -->
+  <section id="montar">
+    <h1>Monte o comando</h1>
+    <p class="lead">Preencha o que souber. O que ficar em branco não some — é preenchido pelo palpite mais provável da máquina.</p>
+
+    <div class="contagem"><span id="cont">0 de 7 partes</span><span id="dica-cont"></span></div>
+    <div class="medidor"><i id="barra"></i></div>
+
+    <form id="form"></form>
+
+    <h2>Comando gerado</h2>
+    <div class="saida">
+      <pre id="saida" class="vazio">Comece a preencher acima e o comando aparece aqui.</pre>
+    </div>
+    <div class="acoes">
+      <button class="btn" id="copiar" disabled>Copiar comando</button>
+      <button class="btn sec" id="salvar" disabled>Salvar</button>
+      <button class="btn sec" id="limpar">Limpar</button>
+    </div>
+
+    <div class="nota">
+      <b>Regra de ouro</b>
+      Não peça apenas “faça”. Peça “mostre o que fez, o que assumiu, o que falta e como eu valido”.
+    </div>
+
+    <aside class="ponte" id="ponte" hidden>
+      <b>O comando é o começo</b>
+      <p>A resposta vai chegar — e aí começa a parte que a maioria pula: avaliar, corrigir e auditar até virar uma entrega com o seu nome. É o que a cartilha ensina, com o método completo e 20 casos reais.</p>
+      <a href="#" id="link-loja">Conhecer a cartilha — R$ 37</a>
+      <span>Acesso imediato · 7 dias de garantia · não é lista de prompts</span>
+    </aside>
+  </section>
+
+  <!-- ---------------- CONFERIR ---------------- -->
+  <section id="conferir" hidden>
+    <h1>Antes de aceitar a entrega</h1>
+    <p class="lead">Definição de pronto do capítulo 4. Se algum item ficar aberto, a entrega ainda não está pronta — por melhor que pareça.</p>
+    <div id="pronto"></div>
+
+    <h2>Comando de auditoria</h2>
+    <p class="lead" style="margin-bottom:12px">Cole na mesma conversa quando quiser revisar o que foi entregue.</p>
+    <div class="saida"><pre id="auditoria"></pre></div>
+    <div class="acoes"><button class="btn" id="copiar-aud">Copiar auditoria</button></div>
+
+    <div class="nota">
+      <b>Limite</b>
+      A auditoria com IA reduz erros; não substitui contador, advogado, profissional de saúde, arquiteto, engenheiro ou responsável técnico quando a decisão exige habilitação.
+    </div>
+
+    <p class="lead" style="margin-top:16px">As rodadas completas de refinamento — com 20 casos reais — estão na cartilha. <a id="link-loja-2" href="#">Conhecer a cartilha</a>.</p>
+  </section>
+
+  <!-- ---------------- SALVOS ---------------- -->
+  <section id="salvos" hidden>
+    <h1>Comandos salvos</h1>
+    <p class="lead">Ficam guardados só neste aparelho, neste navegador. Nada é enviado para lugar nenhum.</p>
+    <div id="lista"></div>
+  </section>
+
+  <footer>
+    <strong>O Segredo do Comando</strong> · método C.O.M.A.N.D.O.<br>
+    Funciona sem internet. Nada do que você escreve sai deste aparelho.
+  </footer>
+</main>
+
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+<script>
+/* =================================================================
+   Painel de Comando
+
+   O método é o do livro, sem alteração — cartilha/content.py:159-167.
+   Se ele mudar lá, muda aqui. Nunca o contrário.
+
+   Nada de servidor: tudo roda no aparelho e é guardado em
+   localStorage. Isso é decisão de projeto, não limitação — o produto
+   ensina a não entregar dado sem necessidade, e seria contraditório
+   um app do método pedir cadastro para funcionar.
+   ================================================================= */
+
+var PARTES = [
+  {k:'contexto',   l:'C', rot:'CONTEXTO',        dica:'onde você está, o que já existe e por que isso importa',
+   ph:'Ex.: sou contador há 12 anos, atendo MEIs. Tenho a planilha de janeiro a junho, com colunas inconsistentes.'},
+  {k:'objetivo',   l:'O', rot:'OBJETIVO',        dica:'qual mudança concreta deseja produzir',
+   ph:'Ex.: preciso que a diretoria decida se mantemos o canal marketplace.'},
+  {k:'modo',       l:'M', rot:'MODO DE ATUAÇÃO', dica:'que papel a IA deve assumir nesta etapa',
+   ph:'Ex.: atue como analista. Faça perguntas antes de propor. Não escreva ainda.'},
+  {k:'audiencia',  l:'A', rot:'AUDIÊNCIA',       dica:'para quem será a entrega',
+   ph:'Ex.: diretoria, cinco minutos de leitura, sem jargão técnico.'},
+  {k:'normas',     l:'N', rot:'NORMAS E LIMITES',dica:'prazo, orçamento, regras, riscos e o que não fazer',
+   ph:'Ex.: não estime dados ausentes — sinalize. Não esconda queda de desempenho. Entrega até sexta.'},
+  {k:'detalhe',    l:'D', rot:'DETALHAMENTO',    dica:'formato, tamanho, exemplos e critérios de qualidade',
+   ph:'Ex.: uma página, três decisões numeradas, cada uma com risco e responsável.'},
+  {k:'otimizacao', l:'O', rot:'OTIMIZAÇÃO',      dica:'como avaliar, corrigir e chegar à próxima versão',
+   ph:'Ex.: ao final, liste o que você assumiu e o que não pôde confirmar.'}
+];
+
+var PRONTO = [
+  'O objetivo principal pode ser identificado em cinco segundos.',
+  'Nenhuma informação foi inventada ou tratada como confirmada sem fonte.',
+  'A entrega funciona no formato solicitado e para o público definido.',
+  'Pendências, riscos e decisões humanas estão visíveis.',
+  'A versão foi testada, lida e aprovada por quem responde pelo projeto.'
+];
+
+var AUDITORIA =
+'Compare esta versão com o objetivo, o público, as decisões aprovadas e a definição de pronto. ' +
+'Liste: acertos, desvios, fatos sem fonte, riscos, pendências e o comando exato para a próxima etapa. ' +
+'Não reescreva ainda.';
+
+var CHAVE = 'osc.comandos.v1';
+var $ = function(s){ return document.querySelector(s); };
+
+/* Ponte para a cartilha. O utm_medium identifica de onde veio o clique,
+   então a Kiwify mostra qual ponto do app converte. Quando a landing
+   estiver publicada, troque LOJA por ela — a landing tem o pixel. */
+var LOJA = 'https://pay.kiwify.com.br/EyN9oMh';
+function loja(onde){
+  return LOJA + '?utm_source=app&utm_medium=' + onde + '&utm_campaign=painel_comando';
+}
+
+/* ---------- monta os campos ---------- */
+var form = $('#form');
+PARTES.forEach(function(p){
+  var d = document.createElement('div');
+  d.className = 'campo';
+  d.id = 'campo-' + p.k;
+  d.innerHTML =
+    '<label for="in-'+p.k+'">' +
+      '<span class="letra" aria-hidden="true">'+p.l+'</span>' +
+      '<span><span class="rot">'+p.rot+'</span><span class="dica">'+p.dica+'</span></span>' +
+    '</label>' +
+    '<textarea id="in-'+p.k+'" name="'+p.k+'" rows="2" placeholder="'+p.ph.replace(/"/g,'&quot;')+'"></textarea>';
+  form.appendChild(d);
+});
+
+/* ---------- monta a definição de pronto ---------- */
+var pronto = $('#pronto');
+PRONTO.forEach(function(t, i){
+  var d = document.createElement('label');
+  d.className = 'check';
+  d.innerHTML = '<input type="checkbox" id="pr-'+i+'"><span>'+t+'</span>';
+  pronto.appendChild(d);
+});
+$('#auditoria').textContent = AUDITORIA;
+
+/* ---------- gera o comando ---------- */
+function valores(){
+  var v = {};
+  PARTES.forEach(function(p){ v[p.k] = $('#in-'+p.k).value.trim(); });
+  return v;
+}
+
+function gerar(v){
+  var linhas = [];
+  PARTES.forEach(function(p){
+    if (v[p.k]) linhas.push(p.rot + ': ' + v[p.k]);
+  });
+  if (!linhas.length) return '';
+  /* O fecho é a regra de ouro do capítulo 4 — o que separa um pedido
+     de um comando é exigir que a resposta mostre o próprio trabalho. */
+  linhas.push('');
+  linhas.push('Antes de entregar: mostre o que fez, o que assumiu, o que ainda falta e como eu valido.');
+  return linhas.join('\n');
+}
+
+function atualizar(){
+  var v = valores(), n = 0;
+  PARTES.forEach(function(p){
+    var el = $('#campo-'+p.k);
+    if (v[p.k]) { el.classList.add('ok'); n++; } else { el.classList.remove('ok'); }
+  });
+  $('#cont').textContent = n + ' de 7 partes';
+  $('#barra').style.width = (n/7*100) + '%';
+  $('#dica-cont').textContent = n === 0 ? '' : (n < 7 ? 'o resto a máquina decide por você' : 'nada ficou implícito');
+  /* A ponte só aparece depois que o app entregou valor (3+ partes). */
+  $('#ponte').hidden = n < 3;
+
+  var txt = gerar(v), saida = $('#saida');
+  if (txt) { saida.textContent = txt; saida.classList.remove('vazio'); }
+  else { saida.textContent = 'Comece a preencher acima e o comando aparece aqui.'; saida.classList.add('vazio'); }
+  $('#copiar').disabled = !txt;
+  $('#salvar').disabled = !txt;
+}
+
+form.addEventListener('input', atualizar);
+
+/* ---------- copiar ---------- */
+function avisar(msg){
+  var a = $('#aviso');
+  a.textContent = msg; a.classList.add('on');
+  clearTimeout(a._t); a._t = setTimeout(function(){ a.classList.remove('on'); }, 2100);
+}
+
+function copiar(texto, msg){
+  /* clipboard.writeText exige contexto seguro; o fallback cobre file:// */
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(texto).then(function(){ avisar(msg); },
+      function(){ copiarFallback(texto, msg); });
+  } else { copiarFallback(texto, msg); }
+}
+function copiarFallback(texto, msg){
+  var t = document.createElement('textarea');
+  t.value = texto; t.style.position='fixed'; t.style.opacity='0';
+  document.body.appendChild(t); t.select();
+  try { document.execCommand('copy'); avisar(msg); }
+  catch(e){ avisar('Não consegui copiar — selecione o texto.'); }
+  document.body.removeChild(t);
+}
+
+$('#copiar').addEventListener('click', function(){ copiar(gerar(valores()), 'Comando copiado'); });
+$('#copiar-aud').addEventListener('click', function(){ copiar(AUDITORIA, 'Auditoria copiada'); });
+
+$('#limpar').addEventListener('click', function(){
+  if (!confirm('Limpar todos os campos?')) return;
+  PARTES.forEach(function(p){ $('#in-'+p.k).value = ''; });
+  atualizar();
+});
+
+/* ---------- salvar e recuperar ---------- */
+function lidos(){ try { return JSON.parse(localStorage.getItem(CHAVE)) || []; } catch(e){ return []; } }
+function grava(l){ try { localStorage.setItem(CHAVE, JSON.stringify(l)); } catch(e){ avisar('Sem espaço para salvar.'); } }
+
+$('#salvar').addEventListener('click', function(){
+  var v = valores();
+  var nome = prompt('Nome deste comando:', v.objetivo ? v.objetivo.slice(0,42) : 'Sem título');
+  if (nome === null) return;
+  var l = lidos();
+  l.unshift({nome: nome || 'Sem título', quando: Date.now(), campos: v});
+  grava(l); listar(); avisar('Salvo neste aparelho');
+});
+
+function listar(){
+  var l = lidos(), alvo = $('#lista');
+  if (!l.length){ alvo.innerHTML = '<p class="lead">Nada salvo ainda. Monte um comando e toque em Salvar.</p>'; return; }
+  alvo.innerHTML = '';
+  l.forEach(function(item, i){
+    var d = new Date(item.quando);
+    var el = document.createElement('div');
+    el.className = 'salvo';
+    el.innerHTML =
+      '<h3></h3><time></time>' +
+      '<div class="acoes">' +
+        '<button class="btn sec" data-abrir="'+i+'">Abrir</button>' +
+        '<button class="btn sec" data-copiar="'+i+'">Copiar</button>' +
+        '<button class="btn sec" data-apagar="'+i+'">Apagar</button>' +
+      '</div>';
+    el.querySelector('h3').textContent = item.nome;
+    el.querySelector('time').textContent = d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    alvo.appendChild(el);
+  });
+}
+
+$('#lista').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  var l = lidos();
+  if (b.dataset.abrir !== undefined){
+    var c = l[+b.dataset.abrir].campos;
+    PARTES.forEach(function(p){ $('#in-'+p.k).value = c[p.k] || ''; });
+    atualizar(); trocar('montar'); avisar('Comando carregado');
+  } else if (b.dataset.copiar !== undefined){
+    copiar(gerar(l[+b.dataset.copiar].campos), 'Comando copiado');
+  } else if (b.dataset.apagar !== undefined){
+    if (!confirm('Apagar este comando?')) return;
+    l.splice(+b.dataset.apagar, 1); grava(l); listar(); avisar('Apagado');
+  }
+});
+
+/* ---------- abas ---------- */
+function trocar(nome){
+  ['montar','conferir','salvos'].forEach(function(n){ $('#'+n).hidden = (n !== nome); });
+  document.querySelectorAll('.abas button').forEach(function(b){
+    b.setAttribute('aria-selected', String(b.dataset.aba === nome));
+  });
+  if (nome === 'salvos') listar();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('.abas button').forEach(function(b){
+  b.addEventListener('click', function(){ trocar(b.dataset.aba); });
+});
+
+$('#link-loja').href = loja('ponte');
+$('#link-loja-2').href = loja('conferir');
+
+atualizar(); listar();
+
+/* Cache para funcionar sem internet. Falha em silêncio quando aberto
+   por file://, que é o esperado — só vale quando publicado. */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>

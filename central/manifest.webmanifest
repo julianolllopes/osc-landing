@@ -1,0 +1,20 @@
+{
+  "name": "Central de Comando — O Segredo do Comando",
+  "short_name": "Central",
+  "description": "O método C.O.M.A.N.D.O. operando no seu dia: três prioridades, projetos com documento-mestre e comandos completos. Sem cadastro e sem internet.",
+  "lang": "pt-BR",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#102A33",
+  "theme_color": "#102A33",
+  "icons": [
+    {
+      "src": "icone.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>O Segredo do Comando — método para transformar conversa com IA em entrega</title>
 <meta name="description" content="Cartilha de 85 páginas, caderno de 20 casos e o método C.O.M.A.N.D.O. em sete partes. Para tirar resultado de trabalho do ChatGPT. R$ 37.">
-<meta name="theme-color" content="#081821">
+<meta name="theme-color" content="#050D14">
 <link rel="canonical" href="https://osc-landing.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="O Segredo do Comando">
@@ -15,354 +15,366 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102A33'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23D4B783' font-family='system-ui'%3E%E2%8C%98%3C/text%3E%3C/svg%3E">
 <style>
 /* =================================================================
-   LANDING — linguagem "presença" (D-025)
+   LANDING v3 — "A CAPA VIVA" (D-025)
 
-   A mesma voz dos apps e dos criativos: quem clica num anúncio escuro
-   cai numa página escura — continuidade converte. Matizes congelados
-   em 00_GOVERNANCA/MARCA.md; nenhuma cor nova aqui.
+   Layout cinematográfico: a arte da capa como atmosfera, rede neural
+   de partículas viva ao fundo, jornada em atos de tela cheia, terminal
+   que digita sozinho. Matizes de 00_GOVERNANCA/MARCA.md.
    ================================================================= */
 :root{
-  --abismo:#081821; --navy:#102A33; --papel:#FBFAF7;
+  --breu:#050D14; --abismo:#081821; --navy:#102A33; --papel:#FBFAF7;
   --ouro:#D4B783; --ouro-claro:#EADDC7; --ouro-filete:#B58A4B;
   --cyan:#6DB5B5; --teal:#176D66; --bruma:#9FB0AE;
-  --vidro:rgba(251,250,247,.05); --vidro-borda:rgba(251,250,247,.08);
-  --poco:rgba(8,24,33,.55);
+  --vidro:rgba(251,250,247,.045); --vidro-borda:rgba(251,250,247,.09);
   --mono:ui-monospace,'SF Mono','Cascadia Code',Consolas,'Roboto Mono',monospace;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  --largura:1060px;
+  --serif:Georgia,'Times New Roman',serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  background:linear-gradient(180deg,var(--abismo) 0%,var(--navy) 46%,var(--abismo) 100%);
-  background-attachment:fixed;
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(23,109,102,.18), transparent 60%),
+    linear-gradient(180deg,var(--breu) 0%,var(--abismo) 40%,var(--breu) 100%);
   color:var(--papel);
   font:400 17px/1.65 var(--sans);font-variant-numeric:tabular-nums;
-  padding-bottom:104px
+  padding-bottom:104px;overflow-x:hidden
 }
-/* grain de filme: mata o banding, dá matéria */
-body::after{
-  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  opacity:.5;mix-blend-mode:soft-light;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E")
+/* rede neural viva — o cérebro digital da capa, animado */
+#rede{position:fixed;inset:0;z-index:0;pointer-events:none}
+/* grain de filme por cima, bem sutil */
+.grain{
+  position:fixed;inset:0;z-index:3;pointer-events:none;
+  opacity:.4;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")
 }
-.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;filter:blur(64px) saturate(130%)}
-.aurora i{position:absolute;border-radius:50%}
-.aurora i:nth-child(1){width:58vmax;height:58vmax;left:-20vmax;top:-26vmax;opacity:.16;
-  background:radial-gradient(circle,var(--teal),transparent 64%);animation:d1 26s ease-in-out infinite alternate}
-.aurora i:nth-child(2){width:46vmax;height:46vmax;right:-16vmax;top:8vmax;opacity:.10;
-  background:radial-gradient(circle,var(--ouro),transparent 62%);animation:d2 34s ease-in-out infinite alternate}
-.aurora i:nth-child(3){width:52vmax;height:52vmax;left:22vw;bottom:-30vmax;opacity:.17;
-  background:radial-gradient(circle,var(--cyan),transparent 64%);animation:d3 22s ease-in-out infinite alternate}
-@keyframes d1{to{transform:translate(9vmax,7vmax) scale(1.12)}}
-@keyframes d2{to{transform:translate(-7vmax,11vmax) scale(.93)}}
-@keyframes d3{to{transform:translate(7vmax,-9vmax) scale(1.09)}}
-main,header{position:relative;z-index:1}
-.env{width:100%;max-width:var(--largura);margin:0 auto;padding:0 22px}
+header,main{position:relative;z-index:2}
+.env{width:100%;max-width:1000px;margin:0 auto;padding:0 22px}
 img{max-width:100%;height:auto;display:block}
 
-section{padding:74px 0}
-.olho{
-  font:600 10.5px var(--mono);letter-spacing:.26em;text-transform:uppercase;
-  color:rgba(212,183,131,.9);margin-bottom:14px
-}
-/* título no desenho da CAPA: serifado, forte, ouro em degradê —
-   a landing é a capa do livro continuando na tela */
-h1{
-  font:700 clamp(30px,5.8vw,52px)/1.14 Georgia,'Times New Roman',serif;
-  letter-spacing:.02em;text-transform:uppercase;
-  background:linear-gradient(180deg,var(--ouro-claro) 0%,var(--ouro) 55%,var(--ouro-filete) 100%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:var(--ouro);
-  text-wrap:balance;
-  filter:drop-shadow(0 2px 16px rgba(212,183,131,.2))
-}
-h2{
-  font:700 clamp(23px,4.1vw,35px)/1.22 Georgia,'Times New Roman',serif;
-  letter-spacing:-.004em;margin-bottom:14px;color:var(--papel);text-wrap:balance
-}
-h3{font:600 18px/1.3 var(--sans);margin-bottom:8px}
-p{margin-bottom:14px}
-
-/* revelação ao rolar — só esconde quando o JS está rodando (classe .js na
-   raiz). Conteúdo nunca depende de animação para existir. */
-.js .rev{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1)}
+/* revelação — só esconde com JS ativo; nada depende de animação p/ existir */
+.js .rev{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
 .js .rev.visivel{opacity:1;transform:none}
 
-/* -------- topo -------- */
-.topo{padding:34px 0 72px}
-.marca{display:flex;align-items:center;gap:11px;margin-bottom:56px}
-.orbe{
-  width:32px;height:32px;border-radius:50%;flex:0 0 auto;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ouro);font-size:15px;line-height:1;
-  background:radial-gradient(circle at 35% 30%, rgba(212,183,131,.30), rgba(109,181,181,.10) 60%, transparent 75%);
-  box-shadow:0 0 20px rgba(212,183,131,.22), inset 0 0 12px rgba(109,181,181,.16);
-  animation:respira 4.6s ease-in-out infinite
+/* ============ ATO 1 · A CAPA ============ */
+.ato1{
+  min-height:100svh;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;text-align:center;
+  padding:26px 0 40px
 }
-@keyframes respira{50%{box-shadow:0 0 30px rgba(212,183,131,.38), inset 0 0 14px rgba(109,181,181,.26);transform:scale(1.05)}}
-.marca b{font:600 11.5px var(--sans);letter-spacing:.24em;text-transform:uppercase}
-.topo .grade{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
-.topo .sub{font-size:clamp(16.5px,2.3vw,19px);color:var(--bruma);margin:20px 0 30px;max-width:38ch}
+.fundo-arte{
+  position:absolute;inset:0;z-index:0;
+  background:url("img/arte.jpg") center 24%/cover no-repeat;
+  opacity:.42;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 62%,transparent 96%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 62%,transparent 96%)
+}
+.fundo-arte::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(70% 60% at 50% 45%, transparent 30%, var(--breu) 100%)
+}
+.ato1 .env{position:relative;z-index:1;display:flex;flex-direction:column;min-height:calc(100svh - 66px)}
+.marca{display:flex;align-items:center;justify-content:center;gap:10px}
+.orbe{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ouro);font-size:16px;line-height:1;
+  background:radial-gradient(circle at 35% 30%, rgba(212,183,131,.32), rgba(109,181,181,.12) 60%, transparent 78%);
+  box-shadow:0 0 22px rgba(212,183,131,.28), inset 0 0 12px rgba(109,181,181,.2);
+  animation:respira 4.4s ease-in-out infinite
+}
+@keyframes respira{50%{box-shadow:0 0 34px rgba(212,183,131,.45), inset 0 0 14px rgba(109,181,181,.3);transform:scale(1.06)}}
+.marca b{font:600 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--bruma)}
 
-.preco{display:flex;align-items:baseline;gap:14px;margin:6px 0 4px}
-.preco .de{font:500 15px var(--mono);color:var(--bruma);text-decoration:line-through;letter-spacing:.04em}
-.preco .por{font:200 clamp(46px,8vw,64px)/1 var(--sans);letter-spacing:-.02em;color:var(--ouro)}
-.parcela{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bruma);margin-bottom:26px}
+.palco{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 0 10px}
+.olho{
+  font:600 11px var(--mono);letter-spacing:.34em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:20px
+}
+/* o letreiro da capa: serifado colossal em ouro lapidado */
+h1{
+  font:700 clamp(40px,9.6vw,92px)/1.02 var(--serif);
+  letter-spacing:.015em;text-transform:uppercase;
+  background:linear-gradient(180deg,#F3E7CF 0%,var(--ouro) 52%,#9A7439 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--ouro);
+  filter:drop-shadow(0 3px 24px rgba(212,183,131,.28));
+  text-wrap:balance;max-width:15ch
+}
+.ato1 .sub{
+  font:400 clamp(16px,2.6vw,20px)/1.55 var(--sans);color:var(--bruma);
+  max-width:44ch;margin:26px 0 34px
+}
+.ato1 .sub b{color:var(--papel);font-weight:600}
+
+.preco-palco{display:flex;align-items:baseline;gap:16px;justify-content:center;margin-bottom:8px}
+.preco-palco .de{font:500 14px var(--mono);color:var(--bruma);text-decoration:line-through;letter-spacing:.06em}
+.preco-palco .por{font:200 clamp(54px,10vw,84px)/1 var(--sans);letter-spacing:-.02em;color:var(--papel)}
+.preco-palco .por i{font-style:normal;font:600 20px var(--mono);color:var(--ouro);vertical-align:super;margin-right:4px}
+.parcela{font:500 11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--bruma);margin-bottom:30px}
 
 .btn{
   display:inline-block;background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 55%,var(--ouro-filete));
-  color:var(--abismo);font:700 15.5px var(--sans);letter-spacing:.01em;
-  padding:17px 32px;border-radius:99px;text-decoration:none;border:0;cursor:pointer;
-  box-shadow:0 12px 28px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.4);
-  transition:transform .15s, box-shadow .15s
+  color:var(--breu);font:700 16px var(--sans);letter-spacing:.01em;
+  padding:18px 40px;border-radius:99px;text-decoration:none;border:0;cursor:pointer;
+  box-shadow:0 14px 36px -10px rgba(212,183,131,.55), 0 0 60px -12px rgba(212,183,131,.4), inset 0 1px 0 rgba(255,255,255,.45);
+  transition:transform .16s, box-shadow .16s
 }
-.btn:hover{transform:translateY(-1px);box-shadow:0 16px 34px -10px rgba(212,183,131,.6), inset 0 1px 0 rgba(255,255,255,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 44px -10px rgba(212,183,131,.65), 0 0 80px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.45)}
 .btn:active{transform:translateY(0) scale(.98)}
 .btn:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
-.sob-btn{font-size:13.5px;color:var(--bruma);margin-top:14px}
+.sob-btn{font-size:13px;color:var(--bruma);margin-top:16px}
 
-.pilha{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
-.pilha div{
-  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:16px;
-  padding:16px 12px;text-align:center;
-  box-shadow:0 18px 36px -20px rgba(0,0,0,.5), inset 0 1px 0 rgba(251,250,247,.06)
+.desce{
+  margin-top:auto;padding-top:26px;
+  font:600 10px var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--bruma)
 }
-.pilha b{display:block;font:200 34px/1 var(--sans);color:var(--ouro)}
-.pilha span{font-size:13px;display:block;margin-top:5px}
-.pilha small{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bruma)}
+.desce::after{content:"";display:block;width:1px;height:34px;margin:12px auto 0;
+  background:linear-gradient(180deg,var(--cyan),transparent);animation:pinga 2s ease-in-out infinite}
+@keyframes pinga{50%{transform:translateY(7px);opacity:.5}}
 
-.capa-wrap{position:relative}
-.capa-wrap::before{
-  content:"";position:absolute;inset:-14% -10%;z-index:-1;border-radius:50%;
-  background:radial-gradient(closest-side, rgba(109,181,181,.22), rgba(212,183,131,.08) 55%, transparent 72%);
-  filter:blur(22px)
+/* ============ SEÇÕES ============ */
+section{padding:110px 0;position:relative}
+.kicker{
+  font:600 10.5px var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:16px
 }
-.capa-wrap img{border-radius:10px;box-shadow:0 34px 70px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(109,181,181,.18);animation:flutua 7s ease-in-out infinite}
-@keyframes flutua{50%{transform:translateY(-9px)}}
+h2{
+  font:700 clamp(26px,5vw,44px)/1.16 var(--serif);letter-spacing:.005em;
+  margin-bottom:14px;color:var(--papel);text-wrap:balance
+}
+h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(--ouro-filete));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--ouro)}
+.chumbo{color:var(--bruma);font-size:16px;max-width:56ch;margin-bottom:34px}
 
-/* -------- problema: a conversa como terminal -------- */
-.term{
-  background:var(--poco);border:1px solid var(--vidro-borda);border-radius:16px;
-  overflow:hidden;box-shadow:0 22px 44px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(251,250,247,.06)
+/* ============ ATO 2 · O TERMINAL ============ */
+.tty{
+  background:rgba(5,13,20,.82);border:1px solid rgba(109,181,181,.22);border-radius:16px;
+  overflow:hidden;max-width:760px;
+  box-shadow:0 30px 60px -24px rgba(0,0,0,.7), 0 0 44px -12px rgba(109,181,181,.16), inset 0 1px 0 rgba(251,250,247,.05)
 }
-.term .barra-term{
-  display:flex;align-items:center;gap:6px;padding:11px 14px;
-  border-bottom:1px solid var(--vidro-borda);background:rgba(8,24,33,.5)
+.tty-top{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid rgba(109,181,181,.15);background:rgba(5,13,20,.6)}
+.tty-top i{width:10px;height:10px;border-radius:50%;background:rgba(251,250,247,.13)}
+.tty-top i:first-child{background:rgba(212,183,131,.4)}
+.tty-top span{margin-left:auto;font:600 9.5px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--bruma)}
+.tty pre{
+  padding:22px 24px;white-space:pre-wrap;word-break:break-word;
+  font:500 13.5px/1.85 var(--mono);color:var(--papel);min-height:280px
 }
-.term .barra-term i{width:9px;height:9px;border-radius:50%;background:rgba(251,250,247,.14)}
-.term .barra-term span{margin-left:auto;font:600 9.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
-.term .corpo{padding:18px 20px;font:500 14px/1.7 var(--mono)}
-.term .voce{color:var(--bruma);margin:0}
-.term .voce::before{content:"❯ ";color:var(--ouro)}
-.term .obs{color:var(--cyan);font-size:12.5px;display:block;margin-top:10px}
-.duas{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+.tty .cur{display:inline-block;width:8px;height:15px;background:var(--cyan);vertical-align:-2px;animation:pisca 1s steps(2) infinite}
+@keyframes pisca{50%{opacity:0}}
 
-/* -------- método -------- */
-.metodo{display:grid;gap:10px;margin-top:34px}
-.metodo li{
-  list-style:none;display:grid;grid-template-columns:44px 1fr;gap:15px;align-items:center;
-  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:15px;padding:13px 16px
+/* ============ ATO 3 · A ESPINHA DO MÉTODO ============ */
+.espinha{position:relative;max-width:640px;margin-top:44px;padding-left:60px}
+.espinha::before{
+  content:"";position:absolute;left:21px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,transparent, rgba(109,181,181,.55) 12%, rgba(109,181,181,.55) 88%, transparent)
 }
-.metodo .l{
-  width:34px;height:34px;border-radius:50%;
-  border:1px solid rgba(212,183,131,.4);
-  background:radial-gradient(circle at 38% 30%, rgba(212,183,131,.16), transparent 70%);
+.no{position:relative;padding:0 0 34px}
+.no:last-child{padding-bottom:0}
+.no .l{
+  position:absolute;left:-60px;top:-3px;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(212,183,131,.45);
+  background:radial-gradient(circle at 38% 30%, rgba(212,183,131,.2), rgba(5,13,20,.9) 75%);
   color:var(--ouro);display:flex;align-items:center;justify-content:center;
-  font:700 13.5px var(--mono)
+  font:700 16px var(--serif);
+  box-shadow:0 0 22px -4px rgba(212,183,131,.35)
 }
-.metodo b{display:block;font:600 15px var(--sans);letter-spacing:.05em}
-.metodo span{font-size:14px;color:var(--bruma)}
+.no b{display:block;font:600 17px var(--sans);letter-spacing:.09em;margin-bottom:3px}
+.no span{font-size:14.5px;color:var(--bruma)}
 
-/* -------- prova -------- */
-.provas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px}
-.provas figure{margin:0}
-.provas img{
-  border-radius:10px;border:1px solid var(--vidro-borda);
-  box-shadow:0 24px 48px -20px rgba(0,0,0,.65);
-  transition:transform .25s ease
+/* ============ ATO 4 · A PROVA (fita) ============ */
+.fita-wrap{position:relative;margin-top:38px}
+.fita{
+  display:flex;gap:20px;overflow-x:auto;padding:8px 22px 22px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none
 }
-.provas figure:hover img{transform:translateY(-5px)}
-.provas figcaption{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bruma);margin-top:10px}
+.fita::-webkit-scrollbar{display:none}
+.fita figure{flex:0 0 min(66vw,270px);margin:0;scroll-snap-align:center}
+.fita img{
+  border-radius:12px;border:1px solid rgba(251,250,247,.1);
+  box-shadow:0 26px 52px -20px rgba(0,0,0,.75);
+  transition:transform .3s ease
+}
+.fita figure:hover img{transform:translateY(-7px) rotate(-.6deg)}
+.fita figcaption{font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);margin-top:12px;text-align:center}
+.arrasta{font:600 10px var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--bruma);text-align:center;margin-top:6px}
 
-/* -------- para quem -------- */
-.para{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+/* ============ PARA QUEM / FAQ ============ */
+.duplo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
 .cartao{
-  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:18px;padding:22px;
-  box-shadow:0 22px 44px -20px rgba(0,0,0,.5), inset 0 1px 0 rgba(251,250,247,.06)
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:18px;padding:24px;
+  box-shadow:0 24px 48px -22px rgba(0,0,0,.6), inset 0 1px 0 rgba(251,250,247,.06)
 }
-.para ul{list-style:none}
-.para li{padding:10px 0 10px 28px;position:relative;font-size:15.5px;border-bottom:1px solid rgba(251,250,247,.06)}
-.para li:last-child{border-bottom:0}
-.para li::before{position:absolute;left:0;top:10px;font-weight:800}
+.cartao h3{font:700 17px var(--serif);letter-spacing:.02em;margin-bottom:10px}
+.cartao ul{list-style:none}
+.cartao li{padding:10px 0 10px 28px;position:relative;font-size:15px;border-bottom:1px solid rgba(251,250,247,.06)}
+.cartao li:last-child{border-bottom:0}
+.cartao li::before{position:absolute;left:0;top:10px;font-weight:800}
 .sim li::before{content:"✓";color:var(--cyan)}
 .nao li::before{content:"✕";color:#CE9179}
 
-/* -------- FAQ -------- */
-.faq details{border-bottom:1px solid rgba(251,250,247,.08);padding:17px 0}
+.faq{max-width:760px}
+.faq details{border-bottom:1px solid rgba(251,250,247,.09);padding:18px 0}
 .faq summary{cursor:pointer;font:600 16.5px var(--sans);list-style:none;display:flex;justify-content:space-between;gap:16px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--ouro);font-weight:300;font-size:24px;line-height:1}
+.faq summary::after{content:"+";color:var(--ouro);font-weight:300;font-size:24px;line-height:1;flex-shrink:0}
 .faq details[open] summary::after{content:"–"}
 .faq p{margin:12px 0 0;color:var(--bruma);font-size:15.5px}
 
-/* -------- oferta -------- */
-.oferta{text-align:center}
-.oferta .kit{font-size:14.5px;color:var(--bruma);max-width:56ch;margin:0 auto 24px}
-.oferta .kit b{color:var(--ouro)}
-.selos{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;margin-top:24px;
-  font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bruma)}
+/* ============ ATO FINAL · A OFERTA ============ */
+.final{
+  min-height:92svh;display:flex;align-items:center;text-align:center;
+  position:relative;overflow:hidden
+}
+.final .halo{
+  position:absolute;inset:auto -20% -55% -20%;height:120%;pointer-events:none;
+  background:radial-gradient(50% 55% at 50% 100%, rgba(212,183,131,.14), transparent 70%)
+}
+.final .env{position:relative;z-index:1}
+.final h2{font-size:clamp(30px,6vw,54px)}
+.trino{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:34px 0 26px}
+.trino div{
+  background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:16px;
+  padding:16px 22px;min-width:150px;
+  box-shadow:0 18px 36px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(251,250,247,.06)
+}
+.trino b{display:block;font:200 36px/1 var(--sans);color:var(--ouro)}
+.trino span{font-size:12.5px;display:block;margin-top:5px}
+.trino small{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bruma)}
+.kit{font-size:14.5px;color:var(--bruma);max-width:54ch;margin:0 auto 30px}
+.kit b{color:var(--ouro)}
+.selos{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;margin-top:26px;
+  font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
 
-footer{color:var(--bruma);font-size:13px;padding:40px 0 12px;line-height:1.7}
-footer strong{color:var(--ouro);font:600 11px var(--mono);letter-spacing:.2em;text-transform:uppercase}
+footer{color:var(--bruma);font-size:12.5px;padding:30px 0 14px;line-height:1.7;position:relative;z-index:2}
+footer strong{color:var(--ouro);font:600 10.5px var(--mono);letter-spacing:.24em;text-transform:uppercase}
 footer a{color:var(--ouro-claro)}
-.aviso-legal{margin-top:12px;font-size:12.5px;opacity:.85}
 
-/* -------- barra flutuante -------- */
+/* barra flutuante */
 .barra{
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(12px + env(safe-area-inset-bottom));
   width:min(480px, calc(100% - 24px));z-index:60;
-  background:rgba(8,24,33,.78);backdrop-filter:blur(20px) saturate(150%);
-  border:1px solid rgba(251,250,247,.1);border-radius:22px;
+  background:rgba(5,13,20,.8);backdrop-filter:blur(20px) saturate(150%);
+  border:1px solid rgba(251,250,247,.11);border-radius:22px;
   display:flex;gap:14px;align-items:center;justify-content:space-between;
   padding:10px 12px 10px 20px;
-  box-shadow:0 22px 48px -14px rgba(0,0,0,.6)
+  box-shadow:0 22px 48px -14px rgba(0,0,0,.7)
 }
-.barra .val{font-size:13px;line-height:1.3;color:var(--bruma)}
+.barra .val{font-size:12.5px;line-height:1.3;color:var(--bruma)}
 .barra .val b{color:var(--ouro);font:200 22px/1 var(--sans);display:block}
-.barra .btn{padding:13px 20px;font-size:14px;white-space:nowrap}
+.barra .btn{padding:13px 22px;font-size:14px;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.4)}
 
 ::selection{background:rgba(109,181,181,.35);color:var(--papel)}
 
-@media (max-width:860px){
-  .topo .grade,.duas,.para{grid-template-columns:1fr}
-  .capa-wrap{max-width:320px;margin:10px auto 0}
-  .provas{grid-template-columns:1fr 1fr}
-  section{padding:56px 0}
-  .marca{margin-bottom:40px}
-}
-@media (max-width:520px){
-  .pilha{grid-template-columns:1fr;gap:9px}
-  .pilha div{display:flex;align-items:baseline;gap:12px;text-align:left;padding:13px 16px}
-  .pilha b{font-size:27px}
-  .provas{grid-template-columns:1fr}
+@media (max-width:760px){
+  .duplo{grid-template-columns:1fr}
+  section{padding:84px 0}
+  .espinha{padding-left:54px}
+  .no .l{left:-54px;width:40px;height:40px;font-size:15px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto}
-  .aurora{display:none}
-  .rev{opacity:1;transform:none}
+  #rede{display:none}
+  .js .rev{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="rede" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- ================= TOPO ================= -->
-<header class="topo">
+<!-- ============ ATO 1 · A CAPA ============ -->
+<header class="ato1">
+  <div class="fundo-arte" aria-hidden="true"></div>
   <div class="env">
     <div class="marca"><span class="orbe" aria-hidden="true">⌘</span><b>O Segredo do Comando</b></div>
-    <div class="grade">
-      <div>
-        <p class="olho">Método C.O.M.A.N.D.O.</p>
-        <h1>A IA não ficou melhor. O pedido ficou.</h1>
-        <p class="sub">Um método de sete partes para transformar um pedido vago em uma entrega que você pode assinar.</p>
-
-        <div class="preco">
-          <span class="de">R$ 97</span>
-          <span class="por">R$ 37</span>
-        </div>
-        <p class="parcela">à vista ou parcelado no cartão</p>
-
-        <a class="btn" href="#" data-cta="topo">Quero o método →</a>
-        <p class="sob-btn">Acesso imediato · 7 dias de garantia · leitura no celular e no computador</p>
-
-        <div class="pilha">
-          <div><b>85</b><span>páginas</span><small>cartilha completa</small></div>
-          <div><b>31</b><span>páginas</span><small>caderno de 20 casos</small></div>
-          <div><b>7</b><span>partes</span><small>método completo</small></div>
-        </div>
+    <div class="palco">
+      <p class="olho">Método C.O.M.A.N.D.O.</p>
+      <h1>A IA não ficou melhor. O pedido ficou.</h1>
+      <p class="sub">Um método de <b>sete partes</b> para transformar um pedido vago em uma entrega que você pode assinar. <b>85 páginas</b>, 20 casos reais, zero promessa vazia.</p>
+      <div class="preco-palco">
+        <span class="de">R$ 97</span>
+        <span class="por"><i>R$</i>37</span>
       </div>
-      <div class="capa-wrap">
-        <img src="img/capa.jpg" width="1000" height="1295" alt="Capa da cartilha O Segredo do Comando" fetchpriority="high">
-      </div>
+      <p class="parcela">à vista ou parcelado no cartão</p>
+      <a class="btn" href="#" data-cta="topo">Quero o método →</a>
+      <p class="sob-btn">Acesso imediato · 7 dias de garantia · celular e computador</p>
     </div>
+    <p class="desce">role</p>
   </div>
 </header>
 
 <main>
 
-<!-- ================= PROBLEMA ================= -->
+<!-- ============ ATO 2 · O TERMINAL ============ -->
 <section>
   <div class="env">
-    <div class="rev">
-      <p class="olho">Se isso soa familiar</p>
-      <h2>Você pergunta. A resposta vem correta — e inútil para o seu caso.</h2>
-    </div>
-    <div class="duas">
-      <div class="term rev">
-        <div class="barra-term"><i></i><i></i><i></i><span>o que você escreve</span></div>
-        <div class="corpo">
-          <p class="voce">Faça um relatório de vendas.</p>
-          <span class="obs">// resultado: introdução ampla, números sem contexto e conclusões que serviriam para qualquer empresa.</span>
-        </div>
-      </div>
-      <div class="term rev">
-        <div class="barra-term"><i></i><i></i><i></i><span>o que faltou</span></div>
-        <div class="corpo">
-          <p style="font:400 15px/1.65 var(--sans);margin:0">Período, público, critério, formato e o que <b style="color:var(--ouro)">não</b> fazer. O que você não diz não fica em branco: é preenchido pelo palpite mais provável de uma máquina que nunca viu a sua planilha.</p>
-        </div>
-      </div>
+    <p class="kicker rev">A diferença, ao vivo</p>
+    <h2 class="rev">O mesmo pedido. <em>Dois destinos.</em></h2>
+    <p class="chumbo rev">O que você não diz, a máquina decide por você. Veja a conversa acontecer:</p>
+    <div class="tty rev">
+      <div class="tty-top"><i></i><i></i><i></i><span>conversa real</span></div>
+      <pre id="tty">❯ faça um relatório de vendas
+— resposta genérica. serve para qualquer empresa. não decide nada.
+
+❯ com o método:
+CONTEXTO   planilha jan–jun, colunas inconsistentes
+OBJETIVO   diretoria decide sobre o canal marketplace
+NORMAS     não estime dados ausentes — sinalize
+ENTREGUE   três decisões numeradas, com risco e responsável
+
+— agora a resposta tem dono, prazo e critério.</pre>
     </div>
   </div>
 </section>
 
-<!-- ================= MÉTODO ================= -->
+<!-- ============ ATO 3 · O MÉTODO ============ -->
 <section>
   <div class="env">
-    <div class="rev">
-      <p class="olho">O método</p>
-      <h2>Sete decisões que você toma — ou a máquina toma por você.</h2>
-    </div>
-    <ul class="metodo">
-      <li class="rev"><span class="l">C</span><div><b>CONTEXTO</b><span>onde você está e o que já existe</span></div></li>
-      <li class="rev"><span class="l">O</span><div><b>OBJETIVO</b><span>qual mudança concreta quer produzir</span></div></li>
-      <li class="rev"><span class="l">M</span><div><b>MODO DE ATUAÇÃO</b><span>que papel a IA assume nesta etapa</span></div></li>
-      <li class="rev"><span class="l">A</span><div><b>AUDIÊNCIA</b><span>para quem é a entrega</span></div></li>
-      <li class="rev"><span class="l">N</span><div><b>NORMAS E LIMITES</b><span>prazo, regras e o que não fazer</span></div></li>
-      <li class="rev"><span class="l">D</span><div><b>DETALHAMENTO</b><span>formato, tamanho, exemplos e critérios</span></div></li>
-      <li class="rev"><span class="l">O</span><div><b>OTIMIZAÇÃO</b><span>como avaliar, corrigir e chegar à próxima versão</span></div></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ================= PROVA ================= -->
-<section>
-  <div class="env">
-    <div class="rev">
-      <p class="olho">Páginas reais do material</p>
-      <h2>Não é promessa. É o que está lá dentro.</h2>
-    </div>
-    <div class="provas">
-      <figure class="rev"><img src="img/metodo.jpg" width="900" height="1165" alt="Página do método C.O.M.A.N.D.O." loading="lazy"><figcaption>O método · capítulo 4</figcaption></figure>
-      <figure class="rev"><img src="img/cena1.jpg" width="900" height="1165" alt="Primeira cena da narrativa" loading="lazy"><figcaption>A narrativa em 5 cenas</figcaption></figure>
-      <figure class="rev"><img src="img/privacidade.jpg" width="900" height="1165" alt="Capítulo sobre privacidade e limites" loading="lazy"><figcaption>Privacidade e limites</figcaption></figure>
-      <figure class="rev"><img src="img/bonus.jpg" width="900" height="1165" alt="Página do caderno de casos" loading="lazy"><figcaption>Bônus · 20 casos reais</figcaption></figure>
-      <figure class="rev"><img src="img/kit.jpg" width="900" height="1165" alt="Página do Kit de Comando" loading="lazy"><figcaption>Kit · artefatos prontos</figcaption></figure>
-      <figure class="rev"><img src="img/capa.jpg" width="1000" height="1295" alt="Capa da cartilha" loading="lazy"><figcaption>85 páginas · 29 capítulos</figcaption></figure>
+    <p class="kicker rev">As sete partes</p>
+    <h2 class="rev">Sete decisões que você toma — <em>ou a máquina toma por você.</em></h2>
+    <div class="espinha">
+      <div class="no rev"><span class="l">C</span><b>CONTEXTO</b><span>onde você está e o que já existe</span></div>
+      <div class="no rev"><span class="l">O</span><b>OBJETIVO</b><span>qual mudança concreta quer produzir</span></div>
+      <div class="no rev"><span class="l">M</span><b>MODO DE ATUAÇÃO</b><span>que papel a IA assume nesta etapa</span></div>
+      <div class="no rev"><span class="l">A</span><b>AUDIÊNCIA</b><span>para quem é a entrega</span></div>
+      <div class="no rev"><span class="l">N</span><b>NORMAS E LIMITES</b><span>prazo, regras e o que não fazer</span></div>
+      <div class="no rev"><span class="l">D</span><b>DETALHAMENTO</b><span>formato, tamanho, exemplos e critérios</span></div>
+      <div class="no rev"><span class="l">O</span><b>OTIMIZAÇÃO</b><span>como avaliar, corrigir e chegar à próxima versão</span></div>
     </div>
   </div>
 </section>
 
-<!-- ================= PARA QUEM ================= -->
+<!-- ============ ATO 4 · A PROVA ============ -->
 <section>
   <div class="env">
-    <div class="rev">
-      <p class="olho">Antes de comprar</p>
-      <h2>Para quem é — e para quem não é.</h2>
+    <p class="kicker rev">Páginas reais do material</p>
+    <h2 class="rev">Não é promessa. <em>É o que está lá dentro.</em></h2>
+  </div>
+  <div class="fita-wrap rev">
+    <div class="fita">
+      <figure><img src="img/capa.jpg" width="1000" height="1295" alt="Capa da cartilha" loading="lazy"><figcaption>85 páginas · 29 capítulos</figcaption></figure>
+      <figure><img src="img/metodo.jpg" width="900" height="1165" alt="Página do método C.O.M.A.N.D.O." loading="lazy"><figcaption>O método · capítulo 4</figcaption></figure>
+      <figure><img src="img/cena1.jpg" width="900" height="1165" alt="Primeira cena da narrativa" loading="lazy"><figcaption>A narrativa em 5 cenas</figcaption></figure>
+      <figure><img src="img/bonus.jpg" width="900" height="1165" alt="Página do caderno de casos" loading="lazy"><figcaption>Bônus · 20 casos reais</figcaption></figure>
+      <figure><img src="img/kit.jpg" width="900" height="1165" alt="Página do Kit de Comando" loading="lazy"><figcaption>Kit · artefatos prontos</figcaption></figure>
+      <figure><img src="img/privacidade.jpg" width="900" height="1165" alt="Capítulo sobre privacidade" loading="lazy"><figcaption>Privacidade e limites</figcaption></figure>
     </div>
-    <div class="para">
+    <p class="arrasta">← arraste →</p>
+  </div>
+</section>
+
+<!-- ============ PARA QUEM ============ -->
+<section>
+  <div class="env">
+    <p class="kicker rev">Antes de comprar</p>
+    <h2 class="rev">Para quem é — <em>e para quem não é.</em></h2>
+    <div class="duplo">
       <div class="cartao rev">
         <h3 style="color:var(--cyan)">Faz sentido se você</h3>
         <ul class="sim">
@@ -382,17 +394,15 @@ footer a{color:var(--ouro-claro)}
         </ul>
       </div>
     </div>
-    <p class="rev" style="margin-top:22px;color:var(--bruma);font-size:14.5px">Este material não promete renda, promoção ou resultado garantido. Ele ensina raciocínio, organização e colaboração com IA.</p>
+    <p class="rev" style="margin-top:24px;color:var(--bruma);font-size:14px">Este material não promete renda, promoção ou resultado garantido. Ele ensina raciocínio, organização e colaboração com IA.</p>
   </div>
 </section>
 
-<!-- ================= FAQ ================= -->
+<!-- ============ FAQ ============ -->
 <section>
-  <div class="env" style="max-width:800px">
-    <div class="rev">
-      <p class="olho">Dúvidas honestas</p>
-      <h2>O que costumam perguntar</h2>
-    </div>
+  <div class="env">
+    <p class="kicker rev">Dúvidas honestas</p>
+    <h2 class="rev">O que costumam perguntar</h2>
     <div class="faq rev">
       <details><summary>É uma lista de prompts?</summary><p>Não. É um método de sete partes e 29 capítulos sobre como conduzir a conversa até uma entrega verificável. Prompts prontos envelhecem; o método continua servindo quando a ferramenta muda.</p></details>
       <details><summary>Preciso pagar o ChatGPT Plus?</summary><p>O material indica onde o plano gratuito tem limite e onde o pago ajuda. Boa parte dos exercícios roda no gratuito.</p></details>
@@ -404,14 +414,13 @@ footer a{color:var(--ouro-claro)}
   </div>
 </section>
 
-<!-- ================= OFERTA ================= -->
-<section class="oferta" id="comprar">
+<!-- ============ ATO FINAL · A OFERTA ============ -->
+<section class="final" id="comprar">
+  <div class="halo" aria-hidden="true"></div>
   <div class="env">
-    <div class="rev">
-      <p class="olho">Comece hoje</p>
-      <h2>Tudo por R$ 37</h2>
-    </div>
-    <div class="pilha rev" style="max-width:620px;margin:28px auto 26px">
+    <p class="kicker rev">Comece hoje</p>
+    <h2 class="rev">Tudo por <em>R$ 37</em></h2>
+    <div class="trino rev">
       <div><b>85</b><span>páginas</span><small>cartilha completa</small></div>
       <div><b>31</b><span>páginas</span><small>caderno de 20 casos</small></div>
       <div><b>7</b><span>partes</span><small>método completo</small></div>
@@ -419,7 +428,7 @@ footer a{color:var(--ouro-claro)}
     <!-- O Kit é o order bump de R$ 27 (D-015), NÃO faz parte dos R$ 37. -->
     <p class="kit rev">No checkout você pode adicionar o <b>Kit de Comando</b> — 12 artefatos prontos para usar — por R$ 27. Opcional.</p>
     <div class="rev">
-      <a class="btn" href="#" data-cta="final" style="font-size:17.5px;padding:19px 38px">Quero o método →</a>
+      <a class="btn" href="#" data-cta="final" style="font-size:17.5px;padding:20px 44px">Quero o método →</a>
       <p class="sob-btn">Pagamento seguro · acesso imediato · 7 dias de garantia</p>
       <div class="selos"><span>⌘ método C.O.M.A.N.D.O.</span><span>◈ garantia de 7 dias</span><span>⚡ acesso imediato</span></div>
     </div>
@@ -429,14 +438,13 @@ footer a{color:var(--ouro-claro)}
 <footer>
   <div class="env">
     <strong>O Segredo do Comando</strong> · Juliano Carvalho
-    <p class="aviso-legal">Este produto é um material educacional digital. Não há promessa de renda, promoção, venda ou resultado garantido. Leis, tributos e recursos das ferramentas mudam: confira fontes oficiais na data de uso e procure profissional habilitado quando a decisão tiver impacto financeiro, jurídico, técnico ou de saúde.</p>
-    <p class="aviso-legal">Dúvidas: <a href="mailto:julianolllopes@gmail.com">julianolllopes@gmail.com</a></p>
+    <p style="margin-top:12px;font-size:12px;opacity:.85">Este produto é um material educacional digital. Não há promessa de renda, promoção, venda ou resultado garantido. Leis, tributos e recursos das ferramentas mudam: confira fontes oficiais na data de uso e procure profissional habilitado quando a decisão tiver impacto financeiro, jurídico, técnico ou de saúde.</p>
+    <p style="margin-top:10px;font-size:12px">Dúvidas: <a href="mailto:julianolllopes@gmail.com">julianolllopes@gmail.com</a></p>
   </div>
 </footer>
 
 </main>
 
-<!-- barra flutuante: o preço e o botão acompanham a rolagem -->
 <div class="barra">
   <div class="val">O Segredo do Comando<b>R$ 37</b></div>
   <a class="btn" href="#" data-cta="barra">Quero o método</a>
@@ -448,9 +456,7 @@ footer a{color:var(--ouro-claro)}
    ----------------------------------------------------------------- */
 var CHECKOUT = "https://pay.kiwify.com.br/EyN9oMh";
 
-/* Pixel da Meta. O PageView sozinho não basta: sem InitiateCheckout a
-   Meta otimiza para quem carrega a página, não para quem compra —
-   foi exatamente o que aconteceu nas campanhas de julho. */
+/* Pixel da Meta — PageView + InitiateCheckout no clique. */
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -462,6 +468,9 @@ fbq('track','PageView');
 document.documentElement.classList.add('js');
 
 (function(){
+  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- CTAs: evento antes de navegar, UTMs preservados ---- */
   var params = location.search ? location.search.substring(1) : "";
   function destino(origem){
     var u = CHECKOUT + "?utm_source=landing&utm_medium=" + encodeURIComponent(origem);
@@ -471,30 +480,114 @@ document.documentElement.classList.add('js');
     a.addEventListener('click', function(e){
       e.preventDefault();
       var origem = a.getAttribute('data-cta');
-      try{
-        fbq('track','InitiateCheckout',{content_name:'O Segredo do Comando',value:37.00,currency:'BRL'});
-      }catch(_){}
-      /* pequeno atraso para o evento sair antes da navegação */
+      try{ fbq('track','InitiateCheckout',{content_name:'O Segredo do Comando',value:37.00,currency:'BRL'}); }catch(_){}
       setTimeout(function(){ location.href = destino(origem); }, 180);
     });
   });
 
-  /* revelação ao rolar — os blocos entram conforme aparecem */
-  if ('IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(entradas){
-      entradas.forEach(function(en){
+  /* ---- revelação ao rolar, com rede de segurança ---- */
+  if ('IntersectionObserver' in window && !rm){
+    var obs = new IntersectionObserver(function(es){
+      es.forEach(function(en){
         if (en.isIntersecting){ en.target.classList.add('visivel'); obs.unobserve(en.target); }
       });
-    }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+    }, {rootMargin:'0px 0px -6% 0px', threshold:.06});
     document.querySelectorAll('.rev').forEach(function(el){ obs.observe(el); });
   } else {
     document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('visivel'); });
   }
-
-  /* rede de segurança: aconteça o que acontecer, nada fica escondido */
   setTimeout(function(){
     document.querySelectorAll('.rev:not(.visivel)').forEach(function(el){ el.classList.add('visivel'); });
-  }, 3000);
+  }, 2600);
+
+  /* ---- rede neural viva: o cérebro digital da capa, animado ----
+     Pontos em deriva lenta, ligados por linhas quando próximos.
+     Desligada em reduced-motion; pausada com a aba oculta. */
+  var cv = document.getElementById('rede');
+  if (cv && cv.getContext && !rm){
+    var cx = cv.getContext('2d'), W, H, PTS = [], N, DPR;
+    function medir(){
+      DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = cv.width = Math.floor(innerWidth * DPR);
+      H = cv.height = Math.floor(innerHeight * DPR);
+      cv.style.width = innerWidth + 'px';
+      cv.style.height = innerHeight + 'px';
+      N = innerWidth < 700 ? 40 : 76;
+      PTS = [];
+      for (var i = 0; i < N; i++){
+        PTS.push({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - .5) * .22 * DPR,
+          vy: (Math.random() - .5) * .22 * DPR,
+          ouro: i % 8 === 0
+        });
+      }
+    }
+    var LIGA = 150;
+    function passo(){
+      cx.clearRect(0, 0, W, H);
+      var liga2 = LIGA * LIGA * DPR * DPR;
+      for (var i = 0; i < N; i++){
+        var p = PTS[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        for (var j = i + 1; j < N; j++){
+          var q = PTS[j], dx = p.x - q.x, dy = p.y - q.y, d2 = dx*dx + dy*dy;
+          if (d2 < liga2){
+            var a = (1 - d2 / liga2) * .34;
+            cx.strokeStyle = 'rgba(109,181,181,' + a.toFixed(3) + ')';
+            cx.lineWidth = 1;
+            cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(q.x, q.y); cx.stroke();
+          }
+        }
+      }
+      for (var k = 0; k < N; k++){
+        var s = PTS[k];
+        cx.fillStyle = s.ouro ? 'rgba(212,183,131,.8)' : 'rgba(109,181,181,.65)';
+        cx.beginPath();
+        cx.arc(s.x, s.y, (s.ouro ? 2.1 : 1.4) * DPR, 0, 6.2832);
+        cx.fill();
+      }
+      if (!document.hidden) requestAnimationFrame(passo);
+    }
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden) requestAnimationFrame(passo);
+    });
+    addEventListener('resize', medir);
+    medir(); requestAnimationFrame(passo);
+  }
+
+  /* ---- terminal que digita sozinho ----
+     O texto completo JÁ ESTÁ no HTML: sem JS ou com reduced-motion,
+     ele simplesmente aparece. O JS só encena a digitação. */
+  var tty = document.getElementById('tty');
+  if (tty && !rm && 'IntersectionObserver' in window){
+    var completo = tty.textContent, rodou = false;
+    var obsT = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if (!en.isIntersecting || rodou) return;
+        rodou = true; obsT.disconnect();
+        tty.textContent = '';
+        var cur = document.createElement('span'); cur.className = 'cur';
+        tty.appendChild(cur);
+        var i = 0;
+        (function tic(){
+          if (i >= completo.length){ cur.remove(); return; }
+          var ch = completo[i++];
+          cur.insertAdjacentText('beforebegin', ch);
+          setTimeout(tic, ch === '\n' ? 200 : (i % 3 === 0 ? 26 : 12));
+        })();
+        /* rede de segurança: aconteça o que acontecer, o texto termina inteiro */
+        setTimeout(function(){
+          if (tty.textContent.length < completo.length){
+            tty.textContent = completo;
+          }
+        }, 16000);
+      });
+    }, {threshold:.35});
+    obsT.observe(tty);
+  }
 })();
 </script>
 </body>

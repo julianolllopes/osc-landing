@@ -283,6 +283,9 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
 .trino span{font-size:12.5px;display:block;margin-top:5px}
 .trino small{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bruma)}
 .kit{font-size:14.5px;color:var(--bruma);max-width:54ch;margin:0 auto 30px}
+/* Os dois caminhos lado a lado no desktop; empilhados no celular, com o
+   dourado sempre em cima — a hierarquia não se inverte em tela estreita. */
+.par-botoes{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
 .kit b{color:var(--ouro)}
 .selos{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;margin-top:26px;
   font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
@@ -302,8 +305,21 @@ footer a{color:var(--ouro-claro)}
   padding:10px 12px 10px 20px;
   box-shadow:0 22px 48px -14px rgba(0,0,0,.7)
 }
-.barra .val{font-size:12.5px;line-height:1.3;color:var(--bruma)}
-.barra .val b{color:var(--ouro);font:200 22px/1 var(--sans);display:block}
+.barra .val{font-size:12.5px;line-height:1.3;color:var(--bruma);display:flex;flex-direction:column;gap:5px}
+.barra .val b{color:var(--ouro);font:200 24px/1 var(--sans)}
+/* A ferramenta acompanha o preço na barra: quem rola a página inteira sem
+   comprar ainda tem uma porta de entrada gratuita à mão. */
+.barra-link{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--cyan);text-decoration:none;
+  font:600 12px var(--sans);white-space:nowrap
+}
+.barra-link i{
+  width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:0 0 auto;
+  animation:pulsa 2.4s ease-out infinite
+}
+.barra-link:hover{color:var(--papel)}
+.barra-link:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
 .barra .btn{padding:13px 22px;font-size:14px;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.4)}
 
 ::selection{background:rgba(109,181,181,.35);color:var(--papel)}
@@ -469,7 +485,10 @@ ENTREGUE   três decisões numeradas, com risco e responsável
     <!-- O Kit é o order bump de R$ 27 (D-015), NÃO faz parte dos R$ 37. -->
     <p class="kit rev">No checkout você pode adicionar o <b>Kit de Comando</b> — 12 artefatos prontos para usar — por R$ 27. Opcional.</p>
     <div class="rev">
-      <a class="btn" href="#" data-cta="final" style="font-size:17.5px;padding:20px 44px">Quero o método →</a>
+      <div class="par-botoes">
+        <a class="btn" href="#" data-cta="final" style="font-size:17.5px;padding:20px 44px">Quero o método →</a>
+        <a class="btn-2" href="app/" data-ferramenta="final" style="margin-top:0"><i aria-hidden="true"></i>Experimentar grátis →</a>
+      </div>
       <p class="sob-btn">Pagamento seguro · acesso imediato · 7 dias de garantia</p>
       <div class="selos"><span>⌘ método C.O.M.A.N.D.O.</span><span>◈ garantia de 7 dias</span><span>⚡ acesso imediato</span></div>
     </div>
@@ -487,7 +506,10 @@ ENTREGUE   três decisões numeradas, com risco e responsável
 </main>
 
 <div class="barra">
-  <div class="val">O Segredo do Comando<b>R$ 37</b></div>
+  <div class="val">
+    <b>R$ 37</b>
+    <a class="barra-link" href="app/" data-ferramenta="barra"><i aria-hidden="true"></i>Experimentar grátis</a>
+  </div>
   <a class="btn" href="#" data-cta="barra">Quero o método</a>
 </div>
 

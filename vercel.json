@@ -1,0 +1,10 @@
+{
+  "headers": [
+    {
+      "source": "/criativos/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
+}

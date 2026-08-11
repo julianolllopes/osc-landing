@@ -534,10 +534,18 @@ document.documentElement.classList.add('js');
   var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- CTAs: evento antes de navegar, UTMs preservados ---- */
+  /* Quem chega pelo anúncio já traz utm_source=meta. Se a landing colar os
+     dela por cima, o parâmetro aparece duas vezes e a Kiwify lê a primeira
+     ocorrência — a venda vira "landing" e o anúncio some do relatório.
+     Então: o que vem de fora manda. A landing só preenche o que falta, e
+     guarda o botão clicado em campo próprio, que não disputa com ninguém. */
   var params = location.search ? location.search.substring(1) : "";
   function destino(origem){
-    var u = CHECKOUT + "?utm_source=landing&utm_medium=" + encodeURIComponent(origem);
-    return params ? u + "&" + params : u;
+    var q = new URLSearchParams(params);
+    if (!q.get('utm_source')) q.set('utm_source', 'landing');
+    if (!q.get('utm_medium')) q.set('utm_medium', origem);
+    q.set('origem_botao', origem);
+    return CHECKOUT + '?' + q.toString();
   }
   document.querySelectorAll('[data-cta]').forEach(function(a){
     a.addEventListener('click', function(e){

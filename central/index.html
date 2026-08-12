@@ -961,11 +961,23 @@ $('#guia-auditoria').textContent = AUDITORIA;
 $('#copiar-aud').addEventListener('click', function(){ copiar(AUDITORIA, 'Auditoria copiada'); });
 
 /* backup: o dado é da pessoa; o arquivo é a garantia de que ela nunca o perde */
+
+/* Data local no formato AAAA-MM-DD — ordena certo no explorador de arquivos.
+   Não usar toISOString(): ela devolve UTC, e no Brasil (UTC-3) todo backup
+   feito depois das 21h saía carimbado com o dia seguinte. O histórico do
+   fechamento do dia sempre usou a data local, então os dois discordavam:
+   o registro dizia 11/08 e o arquivo daquele mesmo backup dizia 2026-08-12. */
+function dataLocalISO(){
+  var d = new Date();
+  var pad = function(n){ return n < 10 ? '0' + n : String(n); };
+  return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+
 $('#exportar').addEventListener('click', function(){
   var blob = new Blob([JSON.stringify(S, null, 2)], {type: 'application/json'});
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'central-de-comando-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.download = 'central-de-comando-backup-' + dataLocalISO() + '.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
   avisar('Backup baixado');

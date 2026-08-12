@@ -6,7 +6,7 @@
  *
  * Ao publicar uma versão nova, troque VERSAO para invalidar o cache.
  */
-var VERSAO = 'central-v2';
+var VERSAO = 'central-v3';
 var ARQUIVOS = ['.', 'index.html', 'manifest.webmanifest', 'icone.svg'];
 
 self.addEventListener('install', function (evento) {

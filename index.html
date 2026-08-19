@@ -547,12 +547,20 @@ document.documentElement.classList.add('js');
     q.set('origem_botao', origem);
     return CHECKOUT + '?' + q.toString();
   }
+  /* O destino vai no href, nao no JavaScript.
+     A versao anterior fazia preventDefault + setTimeout + location.href, e
+     com href="#" nao havia rede de seguranca. Dentro do navegador do app do
+     Instagram e do Facebook — de onde vem 100% do trafego pago — navegacao
+     disparada por timer perde o vinculo com o toque do usuario e trava. O
+     evento disparava assim mesmo: 71 checkouts contados no pixel, zero
+     pessoas chegando na Kiwify. A landing antiga, que vendeu 8 vezes, usava
+     link nativo. Ver D-043. */
   document.querySelectorAll('[data-cta]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var origem = a.getAttribute('data-cta');
+    a.setAttribute('href', destino(a.getAttribute('data-cta')));
+    a.setAttribute('rel', 'noopener');
+    a.addEventListener('click', function(){
+      /* So marca. Sem preventDefault e sem timer: quem navega e o navegador. */
       try{ fbq('track','InitiateCheckout',{content_name:'O Segredo do Comando',value:37.00,currency:'BRL'}); }catch(_){}
-      setTimeout(function(){ location.href = destino(origem); }, 180);
     });
   });
 

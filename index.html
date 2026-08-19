@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>O Segredo do Comando — método para transformar conversa com IA em entrega</title>
-<meta name="description" content="Cartilha de 79 páginas, quatro bônus inclusos e o método C.O.M.A.N.D.O. em sete partes. Para tirar resultado de trabalho de qualquer ferramenta de IA. R$ 37.">
+<meta name="description" content="De projeto executivo a vídeo fotorrealista: o método C.O.M.A.N.D.O. em sete partes. Cartilha de 79 páginas e quatro bônus inclusos. R$ 37.">
 <meta name="theme-color" content="#050D14">
 <link rel="canonical" href="https://osc-landing.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="O Segredo do Comando">
-<meta property="og:description" content="Não é uma lista de prompts. É o método que transforma um pedido vago em uma entrega que você pode assinar.">
+<meta property="og:description" content="Não é uma lista de prompts. São as sete decisões que você toma antes de a IA responder — do relatório ao vídeo fotorrealista.">
 <meta property="og:url" content="https://osc-landing.vercel.app/">
 <!-- Absoluta de proposito: o robo da Meta e o do WhatsApp nao resolvem
      caminho relativo, e o link sai sem imagem no anuncio e na conversa. -->
@@ -20,7 +20,7 @@
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="O Segredo do Comando">
-<meta name="twitter:description" content="Não é uma lista de prompts. É o método que transforma um pedido vago em uma entrega que você pode assinar.">
+<meta name="twitter:description" content="Não é uma lista de prompts. São as sete decisões que você toma antes de a IA responder — do relatório ao vídeo fotorrealista.">
 <meta name="twitter:image" content="https://osc-landing.vercel.app/img/capa.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102A33'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23D4B783' font-family='system-ui'%3E%E2%8C%98%3C/text%3E%3C/svg%3E">
 <style>
@@ -240,6 +240,13 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
   scrollbar-width:none
 }
 .fita::-webkit-scrollbar{display:none}
+
+.vitrine{padding:clamp(28px,6vw,64px) 0 clamp(12px,3vw,28px)}
+.palco-video{max-width:min(88vw,420px);margin:14px auto 0;border-radius:20px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(5,13,20,.55);border:1px solid var(--vidro-borda);background:#000}
+.palco-video video{display:block;width:100%;height:auto}
+.legenda-video{max-width:min(90vw,440px);margin:14px auto 0;text-align:center;
+  font-size:13.5px;line-height:1.5;color:var(--bruma)}
 .fita figure{flex:0 0 min(66vw,270px);margin:0;scroll-snap-align:center}
 .fita img{
   border-radius:12px;border:1px solid rgba(251,250,247,.1);
@@ -363,8 +370,8 @@ footer a{color:var(--ouro-claro)}
     <div class="marca"><span class="orbe" aria-hidden="true">⌘</span><b>O Segredo do Comando</b></div>
     <div class="palco">
       <p class="olho">Método C.O.M.A.N.D.O.</p>
-      <h1>A IA não ficou melhor. O pedido ficou.</h1>
-      <p class="sub">Um método de <b>sete partes</b> para transformar um pedido vago em uma entrega que você pode assinar. <b>143 páginas</b> no total, 20 casos reais, zero promessa vazia.</p>
+      <h1>De projeto executivo a vídeo fotorrealista.<br><em>O mesmo método.</em></h1>
+      <p class="sub">Sete decisões que você toma antes de a IA responder — e que valem em qualquer ferramenta, para qualquer entrega. <b>143 páginas</b>, 20 casos reais, zero promessa vazia.</p>
       <div class="preco-palco">
         <span class="de">R$ 97</span>
         <span class="por"><i>R$</i>37</span>
@@ -380,13 +387,29 @@ footer a{color:var(--ouro-claro)}
   </div>
 </header>
 
+<!-- Vídeo em destaque: entra ANTES de qualquer texto longo. Quem chega pelo
+     anúncio quer ver, não ler — e este vídeo foi feito com o que se vende. -->
+<section class="vitrine">
+  <div class="wrap">
+    <p class="olho">Feito com o método</p>
+    <div class="palco-video">
+      <video src="criativos/fita/destaque.mp4" poster="criativos/fita/destaque.jpg"
+             muted loop playsinline preload="none" controls
+             aria-label="Criativo em vídeo produzido com o método"></video>
+    </div>
+    <p class="legenda-video">Este vídeo foi produzido do roteiro ao corte final com o
+      método que está na cartilha. Nenhuma cena foi filmada.</p>
+  </div>
+</section>
+
+
 <main>
 
 <!-- ============ ATO 2 · O TERMINAL ============ -->
 <section>
   <div class="env">
     <p class="kicker rev">A diferença, ao vivo</p>
-    <h2 class="rev">O mesmo pedido. <em>Dois destinos.</em></h2>
+    <h2 class="rev">O mesmo comando. <em>Dois destinos.</em></h2>
     <p class="chumbo rev">O que você não diz, a máquina decide por você. Veja a conversa acontecer:</p>
     <div class="tty rev">
       <div class="tty-top"><i></i><i></i><i></i><span>conversa real</span></div>
@@ -434,6 +457,11 @@ ENTREGUE   três decisões numeradas, com risco e responsável
       <figure><video src="criativos/fita/fita3.mp4" poster="criativos/fita/fita3.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="As sete partes"></video><figcaption>As sete partes</figcaption></figure>
       <figure><video src="criativos/fita/fita4.mp4" poster="criativos/fita/fita4.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco à entrega"></video><figcaption>Da tela em branco à entrega</figcaption></figure>
       <figure><video src="criativos/fita/fita5.mp4" poster="criativos/fita/fita5.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O resultado, sem promessa"></video><figcaption>O resultado, sem promessa</figcaption></figure>
+      <figure><video src="criativos/fita/fita6.mp4" poster="criativos/fita/fita6.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco"></video><figcaption>Da tela em branco</figcaption></figure>
+      <figure><video src="criativos/fita/fita7.mp4" poster="criativos/fita/fita7.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O comando completo"></video><figcaption>O comando completo</figcaption></figure>
+      <figure><video src="criativos/fita/fita8.mp4" poster="criativos/fita/fita8.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Antes e depois"></video><figcaption>Antes e depois</figcaption></figure>
+      <figure><video src="criativos/fita/fita9.mp4" poster="criativos/fita/fita9.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="A volta ao mundo"></video><figcaption>A volta ao mundo</figcaption></figure>
+      <figure><video src="criativos/fita/fita10.mp4" poster="criativos/fita/fita10.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O desabafo"></video><figcaption>O desabafo</figcaption></figure>
     </div>
     <p class="arrasta">← arraste →</p>
   </div>

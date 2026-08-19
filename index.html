@@ -70,18 +70,24 @@ img{max-width:100%;height:auto;display:block}
 .ato1{
   min-height:100svh;display:flex;flex-direction:column;
   position:relative;overflow:hidden;text-align:center;
-  padding:26px 0 40px
+  padding:22px 0 28px
 }
+/* A ARTE É A PEÇA, não papel de parede. O rosto de partículas vive na metade
+   de baixo do arquivo — por isso o recorte é 58%, e não 24% como antes, que
+   mostrava só os painéis do topo e escondia justamente o que vale.
+   A máscara abre duas faixas limpas: uma no topo para o título e outra
+   embaixo para a oferta. O rosto fica no meio, sem nada por cima. */
 .fundo-arte{
   position:absolute;inset:0;z-index:0;
-  background:url("img/arte.jpg") center 24%/cover no-repeat;
-  opacity:.42;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 62%,transparent 96%);
-  mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 62%,transparent 96%)
+  background:url("img/arte.jpg") center 58%/cover no-repeat;
+  opacity:.62;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 13%,#000 29%,#000 73%,transparent 91%);
+  mask-image:linear-gradient(180deg,transparent 0%,transparent 13%,#000 29%,#000 73%,transparent 91%)
 }
+/* Vinheta larga e fraca: fecha as bordas sem apagar o rosto no centro. */
 .fundo-arte::after{
   content:"";position:absolute;inset:0;
-  background:radial-gradient(70% 60% at 50% 45%, transparent 30%, var(--breu) 100%)
+  background:radial-gradient(88% 74% at 50% 50%, transparent 46%, var(--breu) 100%)
 }
 .ato1 .env{position:relative;z-index:1;display:flex;flex-direction:column;min-height:calc(100svh - 66px)}
 .marca{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -96,11 +102,28 @@ img{max-width:100%;height:auto;display:block}
 @keyframes respira{50%{box-shadow:0 0 34px rgba(212,183,131,.45), inset 0 0 14px rgba(109,181,181,.3);transform:scale(1.06)}}
 .marca b{font:600 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--bruma)}
 
-.palco{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 0 10px}
+/* Título encostado no topo, oferta encostada embaixo, rosto respirando no
+   meio. Sem cortina por cima da arte — as faixas limpas vêm da máscara. */
+.palco{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;padding:14px 0 4px;position:relative;z-index:1}
 .olho{
   font:600 11px var(--mono);letter-spacing:.34em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:20px
+  color:var(--cyan);margin-bottom:16px
 }
+/* O nome do método com o tamanho que ele merece: dourado, filetes dos dois
+   lados, respiro largo entre as letras. Era mono 11px cinza-ciano — o nome
+   do projeto não pode ser a menor coisa da tela. */
+.ato1 .olho{
+  display:inline-flex;align-items:center;gap:clamp(10px,2.4vw,20px);
+  font:700 clamp(12px,1.75vw,15.5px) var(--mono);letter-spacing:.42em;
+  color:var(--ouro-claro);margin-bottom:clamp(16px,2.4vw,24px);
+  text-shadow:0 1px 12px rgba(5,13,20,.95)
+}
+.ato1 .olho::before,.ato1 .olho::after{
+  content:"";height:1px;width:clamp(22px,7vw,72px);flex:0 0 auto;
+  background:linear-gradient(90deg,transparent,var(--ouro-filete))
+}
+.ato1 .olho::after{background:linear-gradient(90deg,var(--ouro-filete),transparent)}
 /* o letreiro da capa: serifado colossal em ouro lapidado */
 h1{
   font:700 clamp(40px,9.6vw,92px)/1.02 var(--serif);
@@ -108,13 +131,18 @@ h1{
   background:linear-gradient(180deg,#F3E7CF 0%,var(--ouro) 52%,#9A7439 100%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:var(--ouro);
-  filter:drop-shadow(0 3px 24px rgba(212,183,131,.28));
+  filter:drop-shadow(0 2px 10px rgba(5,13,20,.9)) drop-shadow(0 3px 28px rgba(212,183,131,.3));
   text-wrap:balance;max-width:15ch
 }
+/* margin-top:auto empurra o subtítulo E TUDO QUE VEM DEPOIS para o rodapé do
+   palco. É o que abre o vão no meio onde o rosto aparece inteiro — e afasta a
+   oferta do título, que era a poluição visual. */
 .ato1 .sub{
   font:400 clamp(16px,2.6vw,20px)/1.55 var(--sans);color:var(--bruma);
-  max-width:44ch;margin:26px 0 34px
+  max-width:44ch;margin:auto 0 0;padding-top:clamp(24px,5vh,60px);
+  text-shadow:0 1px 14px rgba(5,13,20,.95)
 }
+.palco .btn{margin-top:22px}
 .ato1 .sub b{color:var(--papel);font-weight:600}
 
 .preco-palco{display:flex;align-items:baseline;gap:16px;justify-content:center;margin-bottom:8px}
@@ -182,18 +210,21 @@ h1{
 @keyframes pinga{50%{transform:translateY(7px);opacity:.5}}
 
 /* ============ SEÇÕES ============ */
-section{padding:110px 0;position:relative}
+section{padding:clamp(54px,7.5vw,76px) 0;position:relative}
 .kicker{
   font:600 10.5px var(--mono);letter-spacing:.3em;text-transform:uppercase;
   color:var(--cyan);margin-bottom:16px
 }
 h2{
   font:700 clamp(26px,5vw,44px)/1.16 var(--serif);letter-spacing:.005em;
-  margin-bottom:14px;color:var(--papel);text-wrap:balance
+  margin-bottom:12px;color:var(--papel);text-wrap:balance
 }
 h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(--ouro-filete));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--ouro)}
-.chumbo{color:var(--bruma);font-size:16px;max-width:56ch;margin-bottom:34px}
+.chumbo{color:var(--bruma);font-size:16px;max-width:56ch;margin-bottom:26px}
+/* A seção que encosta na oferta cede o rodapé: eram ~150px de vão entre a
+   última pergunta do FAQ e o "Tudo por R$ 37". */
+section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 
 /* ============ ATO 2 · O TERMINAL ============ */
 .tty{
@@ -213,7 +244,7 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
 @keyframes pisca{50%{opacity:0}}
 
 /* ============ ATO 3 · A ESPINHA DO MÉTODO ============ */
-.espinha{position:relative;max-width:640px;margin-top:44px;padding-left:60px}
+.espinha{position:relative;max-width:640px;margin-top:30px;padding-left:60px}
 .espinha::before{
   content:"";position:absolute;left:21px;top:8px;bottom:8px;width:2px;
   background:linear-gradient(180deg,transparent, rgba(109,181,181,.55) 12%, rgba(109,181,181,.55) 88%, transparent)
@@ -246,25 +277,32 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
    fora dele competia com o título pela mesma atenção. */
 .palco .sub{max-width:34ch;margin-left:auto;margin-right:auto}
 .palco .btn b{font-weight:700;opacity:.9}
-.link-teste{display:inline-block;margin-top:18px;font-size:14px;color:var(--bruma);
-  text-decoration:none;border-bottom:1px solid rgba(159,176,174,.35);padding-bottom:2px;
-  transition:color .2s,border-color .2s}
-.link-teste:hover{color:var(--ouro-claro);border-color:var(--ouro-claro)}
-.vitrine{padding:clamp(28px,6vw,64px) 0 clamp(12px,3vw,28px)}
+/* Era um fantasma: cinza sobre cinza, com filete de 1px. Ganhou corpo de
+   pílula e o ponto que respira — continua secundária ao dourado, mas agora
+   existe. Segue sendo PROVA, nunca "brinde". */
+.link-teste{
+  display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+  font:600 14.5px var(--sans);color:var(--cyan);text-decoration:none;
+  padding:11px 24px;border-radius:99px;
+  border:1px solid rgba(109,181,181,.45);background:rgba(109,181,181,.07);
+  transition:background .18s,border-color .18s,color .18s,transform .16s}
+.link-teste::before{content:"";width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+  background:var(--cyan);animation:pulsa 2.4s ease-out infinite}
+.link-teste:hover{background:rgba(109,181,181,.14);border-color:var(--cyan);
+  color:var(--papel);transform:translateY(-1px)}
+.link-teste:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.vitrine{padding:clamp(22px,4vw,40px) 0 clamp(10px,2vw,20px);text-align:center}
+.vitrine .olho{margin-bottom:0}
 /* Três peças lado a lado no destaque. No celular vira carrossel com
    encaixe, porque três 9:16 empilhados empurrariam a oferta para longe. */
-.trio-video{display:flex;gap:14px;justify-content:center;margin:14px auto 0;
-  max-width:min(96vw,1000px);overflow-x:auto;scroll-snap-type:x mandatory;
-  padding-bottom:6px;scrollbar-width:none}
-.trio-video::-webkit-scrollbar{display:none}
-.trio-video video{flex:0 0 min(72vw,300px);scroll-snap-align:center;display:block;
-  width:100%;height:auto;border-radius:18px;background:#000;
-  border:1px solid var(--vidro-borda);box-shadow:0 20px 48px rgba(5,13,20,.5)}
-@media(min-width:900px){.trio-video video{flex:0 0 300px}}
-
-.legenda-video{max-width:min(90vw,440px);margin:14px auto 0;text-align:center;
+.legenda-video{max-width:min(90vw,52ch);margin:16px auto 0;text-align:center;
   font-size:13.5px;line-height:1.5;color:var(--bruma)}
-.fita figure{flex:0 0 min(66vw,270px);margin:0;scroll-snap-align:center}
+.vitrine h2{margin-bottom:0;font-size:clamp(24px,4.4vw,38px)}
+.vitrine .fita-wrap{margin-top:22px}
+.fita figure{flex:0 0 min(66vw,240px);margin:0;scroll-snap-align:center}
+.fita video{width:100%;aspect-ratio:9/16;height:auto;object-fit:cover;
+  border-radius:12px;border:1px solid rgba(251,250,247,.1);background:#000;
+  box-shadow:0 26px 52px -20px rgba(0,0,0,.75);transition:transform .3s ease}
 .fita img{
   border-radius:12px;border:1px solid rgba(251,250,247,.1);
   box-shadow:0 26px 52px -20px rgba(0,0,0,.75);
@@ -298,7 +336,8 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
 
 /* ============ ATO FINAL · A OFERTA ============ */
 .final{
-  min-height:92svh;display:flex;align-items:center;text-align:center;
+  padding:clamp(30px,4vw,44px) 0 clamp(52px,7vw,72px);
+  display:flex;align-items:center;text-align:center;
   position:relative;overflow:hidden
 }
 .final .halo{
@@ -307,7 +346,7 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
 }
 .final .env{position:relative;z-index:1}
 .final h2{font-size:clamp(30px,6vw,54px)}
-.trino{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:34px 0 26px}
+.trino{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:24px 0 20px}
 .trino div{
   background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:16px;
   padding:16px 22px;min-width:150px;
@@ -360,7 +399,7 @@ footer a{color:var(--ouro-claro)}
 
 @media (max-width:760px){
   .duplo{grid-template-columns:1fr}
-  section{padding:84px 0}
+  section{padding:clamp(44px,10vw,58px) 0}
   .espinha{padding-left:54px}
   .no .l{left:-54px;width:40px;height:40px;font-size:15px}
 }
@@ -400,21 +439,30 @@ footer a{color:var(--ouro-claro)}
 <!-- Vídeo em destaque: entra ANTES de qualquer texto longo. Quem chega pelo
      anúncio quer ver, não ler — e este vídeo foi feito com o que se vende. -->
 <section class="vitrine">
-  <div class="wrap">
+  <div class="env">
     <p class="olho">Feito com o método</p>
-    <div class="trio-video">
-      <video src="criativos/fita/destaque.mp4" poster="criativos/fita/destaque.jpg"
-             muted loop playsinline preload="none" controls
-             aria-label="Ela conta como o chefe rejeitava tudo"></video>
-      <video src="criativos/fita/fita3.mp4" poster="criativos/fita/fita3.jpg"
-             muted loop playsinline preload="none" controls
-             aria-label="Ele conta que viu alguém fazendo muito melhor"></video>
-      <video src="criativos/fita/fita5.mp4" poster="criativos/fita/fita5.jpg"
-             muted loop playsinline preload="none" controls
-             aria-label="Ela conta que se destacou por método, não por talento"></video>
+    <h2 class="rev">Não é promessa. <em>É o que está lá dentro.</em></h2>
+  </div>
+  <!-- Uma fita só. Os três vídeos grandes saíram: estufavam a dobra, vinham
+       com tarja preta e empurravam o resto da página para baixo. A fita cabe
+       mais peça em menos altura e o visitante escolhe o que abrir. -->
+  <div class="fita-wrap">
+    <div class="fita">
+      <figure><video src="criativos/fita/novo-dubai.mp4" poster="criativos/fita/novo-dubai.jpg" muted loop playsinline preload="none" controls aria-label="Dubai — ela conta que nada daquilo é real"></video><figcaption>Dubai — nada disso é real</figcaption></figure>
+      <figure><video src="criativos/fita/novo-toquio.mp4" poster="criativos/fita/novo-toquio.jpg" muted loop playsinline preload="none" controls aria-label="Tóquio à noite"></video><figcaption>Tóquio à noite</figcaption></figure>
+      <figure><video src="criativos/fita/novo-ponte.mp4" poster="criativos/fita/novo-ponte.jpg" muted loop playsinline preload="none" controls aria-label="A ponte dourada"></video><figcaption>A ponte dourada</figcaption></figure>
+      <figure><video src="criativos/fita/fita1.mp4" poster="criativos/fita/fita1.jpg" muted loop playsinline preload="none" controls aria-label="O comando na tela"></video><figcaption>O comando na tela</figcaption></figure>
+      <figure><video src="criativos/fita/fita4.mp4" poster="criativos/fita/fita4.jpg" muted loop playsinline preload="none" controls aria-label="Da tela em branco à entrega"></video><figcaption>Da tela em branco à entrega</figcaption></figure>
+      <figure><video src="criativos/fita/fita14.mp4" poster="criativos/fita/fita14.jpg" muted loop playsinline preload="none" controls aria-label="Contexto, objetivo, modo"></video><figcaption>Contexto, objetivo, modo</figcaption></figure>
+      <figure><video src="criativos/fita/fita17.mp4" poster="criativos/fita/fita17.jpg" muted loop playsinline preload="none" controls aria-label="Detalhamento e otimização"></video><figcaption>Detalhamento e otimização</figcaption></figure>
+      <figure><video src="criativos/fita/fita15.mp4" poster="criativos/fita/fita15.jpg" muted loop playsinline preload="none" controls aria-label="A mesma IA que eu"></video><figcaption>A mesma IA que eu</figcaption></figure>
+      <figure><video src="criativos/fita/fita13.mp4" poster="criativos/fita/fita13.jpg" muted loop playsinline preload="none" controls aria-label="Não é filtro, não é montagem"></video><figcaption>Não é filtro, não é montagem</figcaption></figure>
     </div>
-    <p class="legenda-video">Este vídeo foi produzido do roteiro ao corte final com o
-      método que está na cartilha. Nenhuma cena foi filmada.</p>
+    <p class="arrasta">← arraste →</p>
+  </div>
+  <div class="env">
+    <p class="legenda-video">Mesma pessoa, lugares diferentes, nenhuma câmera. Do
+      roteiro ao corte final com o método que está na cartilha.</p>
   </div>
 </section>
 
@@ -460,28 +508,8 @@ ENTREGUE   três decisões numeradas, com risco e responsável
   </div>
 </section>
 
-<!-- ============ ATO 4 · A PROVA ============ -->
-<section>
-  <div class="env">
-    <p class="kicker rev">Páginas reais do material</p>
-    <h2 class="rev">Não é promessa. <em>É o que está lá dentro.</em></h2>
-  </div>
-  <div class="fita-wrap rev">
-    <div class="fita">
-      <figure><video src="criativos/fita/fita1.mp4" poster="criativos/fita/fita1.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O comando na tela"></video><figcaption>O comando na tela</figcaption></figure>
-      <figure><video src="criativos/fita/fita4.mp4" poster="criativos/fita/fita4.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco à entrega"></video><figcaption>Da tela em branco à entrega</figcaption></figure>
-      <figure><video src="criativos/fita/fita9.mp4" poster="criativos/fita/fita9.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="A volta ao mundo"></video><figcaption>A volta ao mundo</figcaption></figure>
-      <figure><video src="criativos/fita/fita10.mp4" poster="criativos/fita/fita10.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O desabafo"></video><figcaption>O desabafo</figcaption></figure>
-      <figure><video src="criativos/fita/fita11.mp4" poster="criativos/fita/fita11.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Quatro países sem sair de casa"></video><figcaption>Quatro países sem sair de casa</figcaption></figure>
-      <figure><video src="criativos/fita/fita12.mp4" poster="criativos/fita/fita12.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Nem eu, nem a cozinha, nem Dubai"></video><figcaption>Nem eu, nem a cozinha, nem Dubai</figcaption></figure>
-      <figure><video src="criativos/fita/fita13.mp4" poster="criativos/fita/fita13.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Não é filtro, não é montagem"></video><figcaption>Não é filtro, não é montagem</figcaption></figure>
-      <figure><video src="criativos/fita/fita14.mp4" poster="criativos/fita/fita14.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Contexto, objetivo, modo"></video><figcaption>Contexto, objetivo, modo</figcaption></figure>
-      <figure><video src="criativos/fita/fita15.mp4" poster="criativos/fita/fita15.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="A mesma IA que eu"></video><figcaption>A mesma IA que eu</figcaption></figure>
-      <figure><video src="criativos/fita/fita17.mp4" poster="criativos/fita/fita17.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Detalhamento e otimização"></video><figcaption>Detalhamento e otimização</figcaption></figure>
-    </div>
-    <p class="arrasta">← arraste →</p>
-  </div>
-</section>
+<!-- A fita subiu para logo abaixo do herói (seção .vitrine). O Ato 4 deixou de
+     existir: era a mesma fita repetida mais abaixo na página. -->
 
 <!-- ============ PARA QUEM ============ -->
 <section>

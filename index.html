@@ -251,9 +251,17 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
   transition:color .2s,border-color .2s}
 .link-teste:hover{color:var(--ouro-claro);border-color:var(--ouro-claro)}
 .vitrine{padding:clamp(28px,6vw,64px) 0 clamp(12px,3vw,28px)}
-.palco-video{max-width:min(88vw,420px);margin:14px auto 0;border-radius:20px;overflow:hidden;
-  box-shadow:0 24px 60px rgba(5,13,20,.55);border:1px solid var(--vidro-borda);background:#000}
-.palco-video video{display:block;width:100%;height:auto}
+/* Três peças lado a lado no destaque. No celular vira carrossel com
+   encaixe, porque três 9:16 empilhados empurrariam a oferta para longe. */
+.trio-video{display:flex;gap:14px;justify-content:center;margin:14px auto 0;
+  max-width:min(96vw,1000px);overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:6px;scrollbar-width:none}
+.trio-video::-webkit-scrollbar{display:none}
+.trio-video video{flex:0 0 min(72vw,300px);scroll-snap-align:center;display:block;
+  width:100%;height:auto;border-radius:18px;background:#000;
+  border:1px solid var(--vidro-borda);box-shadow:0 20px 48px rgba(5,13,20,.5)}
+@media(min-width:900px){.trio-video video{flex:0 0 300px}}
+
 .legenda-video{max-width:min(90vw,440px);margin:14px auto 0;text-align:center;
   font-size:13.5px;line-height:1.5;color:var(--bruma)}
 .fita figure{flex:0 0 min(66vw,270px);margin:0;scroll-snap-align:center}
@@ -394,10 +402,16 @@ footer a{color:var(--ouro-claro)}
 <section class="vitrine">
   <div class="wrap">
     <p class="olho">Feito com o método</p>
-    <div class="palco-video">
+    <div class="trio-video">
       <video src="criativos/fita/destaque.mp4" poster="criativos/fita/destaque.jpg"
              muted loop playsinline preload="none" controls
-             aria-label="Criativo em vídeo produzido com o método"></video>
+             aria-label="Ela conta como o chefe rejeitava tudo"></video>
+      <video src="criativos/fita/fita3.mp4" poster="criativos/fita/fita3.jpg"
+             muted loop playsinline preload="none" controls
+             aria-label="Ele conta que viu alguém fazendo muito melhor"></video>
+      <video src="criativos/fita/fita5.mp4" poster="criativos/fita/fita5.jpg"
+             muted loop playsinline preload="none" controls
+             aria-label="Ela conta que se destacou por método, não por talento"></video>
     </div>
     <p class="legenda-video">Este vídeo foi produzido do roteiro ao corte final com o
       método que está na cartilha. Nenhuma cena foi filmada.</p>
@@ -455,13 +469,9 @@ ENTREGUE   três decisões numeradas, com risco e responsável
   <div class="fita-wrap rev">
     <div class="fita">
       <figure><video src="criativos/fita/fita1.mp4" poster="criativos/fita/fita1.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O comando na tela"></video><figcaption>O comando na tela</figcaption></figure>
-      <figure><video src="criativos/fita/fita2.mp4" poster="criativos/fita/fita2.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Raso contra completo"></video><figcaption>Raso contra completo</figcaption></figure>
       <figure><video src="criativos/fita/fita3.mp4" poster="criativos/fita/fita3.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="As sete partes"></video><figcaption>As sete partes</figcaption></figure>
       <figure><video src="criativos/fita/fita4.mp4" poster="criativos/fita/fita4.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco à entrega"></video><figcaption>Da tela em branco à entrega</figcaption></figure>
       <figure><video src="criativos/fita/fita5.mp4" poster="criativos/fita/fita5.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O resultado, sem promessa"></video><figcaption>O resultado, sem promessa</figcaption></figure>
-      <figure><video src="criativos/fita/fita6.mp4" poster="criativos/fita/fita6.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco"></video><figcaption>Da tela em branco</figcaption></figure>
-      <figure><video src="criativos/fita/fita7.mp4" poster="criativos/fita/fita7.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O comando completo"></video><figcaption>O comando completo</figcaption></figure>
-      <figure><video src="criativos/fita/fita8.mp4" poster="criativos/fita/fita8.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Antes e depois"></video><figcaption>Antes e depois</figcaption></figure>
       <figure><video src="criativos/fita/fita9.mp4" poster="criativos/fita/fita9.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="A volta ao mundo"></video><figcaption>A volta ao mundo</figcaption></figure>
       <figure><video src="criativos/fita/fita10.mp4" poster="criativos/fita/fita10.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O desabafo"></video><figcaption>O desabafo</figcaption></figure>
     </div>

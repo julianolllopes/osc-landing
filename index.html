@@ -241,6 +241,15 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
 }
 .fita::-webkit-scrollbar{display:none}
 
+
+/* Hero enxuto: quatro blocos, um caminho. O preço vive dentro do botão —
+   fora dele competia com o título pela mesma atenção. */
+.palco .sub{max-width:34ch;margin-left:auto;margin-right:auto}
+.palco .btn b{font-weight:700;opacity:.9}
+.link-teste{display:inline-block;margin-top:18px;font-size:14px;color:var(--bruma);
+  text-decoration:none;border-bottom:1px solid rgba(159,176,174,.35);padding-bottom:2px;
+  transition:color .2s,border-color .2s}
+.link-teste:hover{color:var(--ouro-claro);border-color:var(--ouro-claro)}
 .vitrine{padding:clamp(28px,6vw,64px) 0 clamp(12px,3vw,28px)}
 .palco-video{max-width:min(88vw,420px);margin:14px auto 0;border-radius:20px;overflow:hidden;
   box-shadow:0 24px 60px rgba(5,13,20,.55);border:1px solid var(--vidro-borda);background:#000}
@@ -371,17 +380,10 @@ footer a{color:var(--ouro-claro)}
     <div class="palco">
       <p class="olho">Método C.O.M.A.N.D.O.</p>
       <h1>Da ideia <em>à criação.</em></h1>
-      <p class="sub">O que está na sua cabeça vira vídeo, personagem e voz — sem filmar nada. Sete decisões que você toma <b>antes</b> de a IA responder, e que valem em qualquer ferramenta.</p>
-      <div class="preco-palco">
-        <span class="de">R$ 97</span>
-        <span class="por"><i>R$</i>37</span>
-      </div>
-      <p class="parcela">à vista ou parcelado no cartão</p>
-      <a class="btn" href="#" data-cta="topo">Quero o método →</a>
-      <p class="sob-btn">Acesso imediato · 7 dias de garantia · celular e computador</p>
-
-      <a class="btn-2" href="app/" data-ferramenta="hero"><i aria-hidden="true"></i>Experimentar grátis, sem cadastro →</a>
-      <p class="sob-btn-2">Monte um comando de verdade em 30 segundos. Se quiser entender por que funciona, o método está no livro.</p>
+      <p class="sub">O que está na sua cabeça vira vídeo, personagem e voz — sem filmar nada.</p>
+      <a class="btn" href="#" data-cta="topo">Quero o método <b>· R$ 37</b></a>
+      <p class="sob-btn">De R$ 97 · acesso imediato · 7 dias de garantia</p>
+      <a class="link-teste" href="app/" data-ferramenta="hero">ou monte um comando de graça, sem cadastro →</a>
     </div>
     <p class="desce">role</p>
   </div>

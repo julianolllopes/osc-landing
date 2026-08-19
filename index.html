@@ -246,7 +246,7 @@ h2 em{font-style:normal;background:linear-gradient(180deg,var(--ouro-claro),var(
   box-shadow:0 26px 52px -20px rgba(0,0,0,.75);
   transition:transform .3s ease
 }
-.fita figure:hover img{transform:translateY(-7px) rotate(-.6deg)}
+.fita figure:hover img,.fita figure:hover video{transform:translateY(-7px) rotate(-.6deg)}
 .fita figcaption{font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);margin-top:12px;text-align:center}
 .arrasta{font:600 10px var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--bruma);text-align:center;margin-top:6px}
 
@@ -429,12 +429,11 @@ ENTREGUE   três decisões numeradas, com risco e responsável
   </div>
   <div class="fita-wrap rev">
     <div class="fita">
-      <figure><img src="img/capa.jpg" width="1000" height="1295" alt="Capa da cartilha" loading="lazy"><figcaption>79 páginas · 27 capítulos</figcaption></figure>
-      <figure><img src="img/metodo.jpg" width="900" height="1165" alt="Página do método C.O.M.A.N.D.O." loading="lazy"><figcaption>O método · capítulo 4</figcaption></figure>
-      <figure><img src="img/cena1.jpg" width="900" height="1165" alt="Primeira cena da narrativa" loading="lazy"><figcaption>A narrativa em 5 cenas</figcaption></figure>
-      <figure><img src="img/bonus.jpg" width="900" height="1165" alt="Página do caderno de casos" loading="lazy"><figcaption>Bônus · 20 casos reais</figcaption></figure>
-      <figure><img src="img/kit.jpg" width="900" height="1165" alt="Página do Kit de Comando" loading="lazy"><figcaption>Kit · artefatos prontos</figcaption></figure>
-      <figure><img src="img/privacidade.jpg" width="900" height="1165" alt="Capítulo sobre privacidade" loading="lazy"><figcaption>Privacidade e limites</figcaption></figure>
+      <figure><video src="criativos/fita/fita1.mp4" poster="criativos/fita/fita1.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O comando na tela"></video><figcaption>O comando na tela</figcaption></figure>
+      <figure><video src="criativos/fita/fita2.mp4" poster="criativos/fita/fita2.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Raso contra completo"></video><figcaption>Raso contra completo</figcaption></figure>
+      <figure><video src="criativos/fita/fita3.mp4" poster="criativos/fita/fita3.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="As sete partes"></video><figcaption>As sete partes</figcaption></figure>
+      <figure><video src="criativos/fita/fita4.mp4" poster="criativos/fita/fita4.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="Da tela em branco à entrega"></video><figcaption>Da tela em branco à entrega</figcaption></figure>
+      <figure><video src="criativos/fita/fita5.mp4" poster="criativos/fita/fita5.jpg" width="360" height="640" muted loop playsinline preload="none" aria-label="O resultado, sem promessa"></video><figcaption>O resultado, sem promessa</figcaption></figure>
     </div>
     <p class="arrasta">← arraste →</p>
   </div>
@@ -578,6 +577,22 @@ document.documentElement.classList.add('js');
       try{ fbq('track','InitiateCheckout',{content_name:'O Segredo do Comando',value:37.00,currency:'BRL'}); }catch(_){}
     });
   });
+
+
+  /* ---- a fita toca só o que está na tela ----
+     Cinco vídeos em autoplay simultâneo travam celular antigo, e é celular
+     antigo que chega pelo anúncio. O observador liga um e pausa o resto. */
+  (function(){
+    var vids = document.querySelectorAll('.fita video');
+    if (!vids.length || !window.IntersectionObserver) return;
+    var obs = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if (e.isIntersecting) { e.target.play().catch(function(){}); }
+        else { e.target.pause(); }
+      });
+    }, {threshold: 0.4});
+    vids.forEach(function(v){ v.muted = true; obs.observe(v); });
+  })();
 
   /* ---- a ferramenta gratuita ----
      Marca o clique como evento próprio. Sem isto não há como saber se a

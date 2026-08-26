@@ -8,13 +8,13 @@ Havia **duas páginas publicadas com preços diferentes apontando para o mesmo c
 
 | | chatgpt.site | vercel.app | esta |
 |---|---|---|---|
-| Preço anunciado | R$ 9,90 | R$ 37 | R$ 37 |
+| Preço anunciado | R$ 9,90 | R$ 19,90 | R$ 19,90 |
 | Peso | 5.353 KB | 14 KB | **19 KB** |
 | Resposta | 2.955 ms | 229 ms | — |
 | Controle | seu | **do sócio** | **seu** |
 | Eventos de pixel | só PageView | só PageView | **PageView + InitiateCheckout** |
 
-Quem entrava pela `chatgpt.site` via R$ 9,90 e era cobrado R$ 37 no checkout.
+Quem entrava pela `chatgpt.site` via R$ 9,90 e era cobrado R$ 19,90 no checkout.
 
 ## O que mudou de verdade
 

@@ -34,8 +34,9 @@
 :root{
   --breu:#08122B; --abismo:#0D1B3E; --navy:#12275C; --papel:#FFFFFF;
   --ouro:#F0C000; --ouro-claro:#FFD84D; --ouro-filete:#C89000;
-  --cyan:#29C5F6; --teal:#0E7490; --bruma:#B8C4E0;
+  --cyan:#29C5F6; --teal:#0E7490; --bruma:#DCE5F5;
   --magenta:#F0248C; --tinta:#000000;
+  --bruma-forte:#E8EEF9;
   --vidro:rgba(41,197,246,.07); --vidro-borda:rgba(0,0,0,.55);
   --mono:ui-monospace,'SF Mono','Cascadia Code',Consolas,'Roboto Mono',monospace;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -102,15 +103,15 @@ img{max-width:100%;height:auto;display:block}
   animation:respira 4.4s ease-in-out infinite
 }
 @keyframes respira{50%{box-shadow:0 0 34px rgba(212,183,131,.45), inset 0 0 14px rgba(109,181,181,.3);transform:scale(1.06)}}
-.marca b{font:600 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--bruma)}
+.marca b{font:800 12px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--ouro);text-shadow:0 2px 0 rgba(0,0,0,.8)}
 
 /* Título encostado no topo, oferta encostada embaixo, rosto respirando no
    meio. Sem cortina por cima da arte — as faixas limpas vêm da máscara. */
 .palco{flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:flex-start;padding:14px 0 4px;position:relative;z-index:1}
 .olho{
-  font:600 11px var(--mono);letter-spacing:.34em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:16px
+  font:800 12.5px var(--mono);letter-spacing:.30em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:16px;text-shadow:0 2px 0 rgba(0,0,0,.85)
 }
 /* O nome do método com o tamanho que ele merece: dourado, filetes dos dois
    lados, respiro largo entre as letras. Era mono 11px cinza-ciano — o nome
@@ -140,18 +141,18 @@ h1 em{font-style:normal;color:var(--ouro)}
    palco. É o que abre o vão no meio onde o rosto aparece inteiro — e afasta a
    oferta do título, que era a poluição visual. */
 .ato1 .sub{
-  font:400 clamp(16px,2.6vw,20px)/1.55 var(--sans);color:var(--bruma);
+  font:600 clamp(17px,2.8vw,22px)/1.5 var(--sans);color:var(--papel);
   max-width:44ch;margin:auto 0 0;padding-top:clamp(24px,5vh,60px);
-  text-shadow:0 1px 14px rgba(5,13,20,.95)
+  text-shadow:0 2px 0 rgba(0,0,0,.9), 0 0 22px rgba(0,0,0,.95)
 }
+.ato1 .sub b{color:var(--ouro)}
 .palco .btn{margin-top:22px}
 .ato1 .sub b{color:var(--papel);font-weight:600}
 
 .preco-palco{display:flex;align-items:baseline;gap:16px;justify-content:center;margin-bottom:8px}
-.preco-palco .de{font:500 14px var(--mono);color:var(--bruma);text-decoration:line-through;letter-spacing:.06em}
 .preco-palco .por{font:200 clamp(54px,10vw,84px)/1 var(--sans);letter-spacing:-.02em;color:var(--papel)}
 .preco-palco .por i{font-style:normal;font:600 20px var(--mono);color:var(--ouro);vertical-align:super;margin-right:4px}
-.parcela{font:500 11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--bruma);margin-bottom:30px}
+.parcela{font:700 12px var(--mono);letter-spacing:.20em;text-transform:uppercase;color:var(--bruma-forte);margin-bottom:30px}
 
 .btn{
   display:inline-block;background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 55%,var(--ouro-filete));
@@ -164,7 +165,7 @@ h1 em{font-style:normal;color:var(--ouro)}
 .btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--tinta), 0 20px 40px -8px rgba(0,0,0,.65)}
 .btn:active{transform:translateY(3px);box-shadow:0 3px 0 var(--tinta)}
 .btn:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
-.sob-btn{font-size:13px;color:var(--bruma);margin-top:16px}
+.sob-btn{font:700 14px var(--sans);color:var(--bruma-forte);margin-top:16px;letter-spacing:.02em;text-shadow:0 1px 0 rgba(0,0,0,.7)}
 
 /* Ação secundária: a ferramenta gratuita.
    Deliberadamente discreta — texto com filete, sem preenchimento. Ela é
@@ -200,13 +201,13 @@ h1 em{font-style:normal;color:var(--ouro)}
   100%{box-shadow:0 0 0 0 rgba(109,181,181,0)}
 }
 .sob-btn-2{
-  font:500 12.5px/1.5 var(--sans);color:var(--bruma);
+  font:600 14px/1.5 var(--sans);color:var(--bruma-forte);
   max-width:36ch;margin:11px auto 0;opacity:.9
 }
 
 .desce{
   margin-top:auto;padding-top:26px;
-  font:600 10px var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--bruma)
+  font:800 11px var(--mono);letter-spacing:.28em;text-transform:uppercase;color:var(--cyan)
 }
 .desce::after{content:"";display:block;width:1px;height:34px;margin:12px auto 0;
   background:linear-gradient(180deg,var(--cyan),transparent);animation:pinga 2s ease-in-out infinite}
@@ -215,8 +216,8 @@ h1 em{font-style:normal;color:var(--ouro)}
 /* ============ SEÇÕES ============ */
 section{padding:clamp(54px,7.5vw,76px) 0;position:relative}
 .kicker{
-  font:600 10.5px var(--mono);letter-spacing:.3em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:16px
+  font:800 12.5px var(--mono);letter-spacing:.30em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:16px;text-shadow:0 2px 0 rgba(0,0,0,.85)
 }
 h2{
   font:900 clamp(28px,5.4vw,48px)/1.05 var(--sans);
@@ -226,7 +227,7 @@ h2{
   text-shadow:0 4px 0 var(--tinta)
 }
 h2 em{font-style:normal;color:var(--ouro)}
-.chumbo{color:var(--bruma);font-size:16px;max-width:56ch;margin-bottom:26px}
+.chumbo{color:var(--bruma-forte);font:500 17.5px/1.6 var(--sans);max-width:56ch;margin-bottom:26px;text-shadow:0 1px 0 rgba(0,0,0,.6)}
 /* A seção que encosta na oferta cede o rodapé: eram ~150px de vão entre a
    última pergunta do FAQ e o "Tudo por R$ 19,90". * */
 section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
@@ -240,7 +241,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 .tty-top{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid rgba(109,181,181,.15);background:rgba(5,13,20,.6)}
 .tty-top i{width:10px;height:10px;border-radius:50%;background:rgba(251,250,247,.13)}
 .tty-top i:first-child{background:rgba(212,183,131,.4)}
-.tty-top span{margin-left:auto;font:600 9.5px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--bruma)}
+.tty-top span{margin-left:auto;font:800 10.5px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
 .tty pre{
   padding:22px 24px;white-space:pre-wrap;word-break:break-word;
   font:500 13.5px/1.85 var(--mono);color:var(--papel);min-height:280px
@@ -266,7 +267,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
   box-shadow:0 0 22px -4px rgba(212,183,131,.35)
 }
 .no b{display:block;font:600 17px var(--sans);letter-spacing:.09em;margin-bottom:3px}
-.no span{font-size:14.5px;color:var(--bruma)}
+.no span{font:500 15.5px/1.5 var(--sans);color:var(--bruma-forte)}
 
 /* ============ ATO 4 · A PROVA (fita) ============ */
 .fita-wrap{position:relative;margin-top:38px}
@@ -300,8 +301,9 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 .vitrine .olho{margin-bottom:0}
 /* Três peças lado a lado no destaque. No celular vira carrossel com
    encaixe, porque três 9:16 empilhados empurrariam a oferta para longe. */
-.legenda-video{max-width:min(90vw,52ch);margin:16px auto 0;text-align:center;
-  font-size:13.5px;line-height:1.5;color:var(--bruma)}
+.legenda-video{max-width:min(90vw,54ch);margin:16px auto 0;text-align:center;
+  font:500 16px/1.55 var(--sans);color:var(--bruma-forte);text-shadow:0 1px 0 rgba(0,0,0,.6)}
+.legenda-video b{color:var(--ouro);font-weight:800}
 .vitrine h2{margin-bottom:0;font-size:clamp(24px,4.4vw,38px)}
 .vitrine .fita-wrap{margin-top:22px}
 .fita figure{flex:0 0 min(66vw,240px);margin:0;scroll-snap-align:center}
@@ -314,8 +316,8 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
   transition:transform .3s ease
 }
 .fita figure:hover img,.fita figure:hover video{transform:translateY(-7px) rotate(-.6deg)}
-.fita figcaption{font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);margin-top:12px;text-align:center}
-.arrasta{font:600 10px var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--bruma);text-align:center;margin-top:6px}
+.fita figcaption{font:800 11.5px var(--mono);letter-spacing:.10em;text-transform:uppercase;color:var(--cyan);margin-top:12px;text-align:center}
+.arrasta{font:800 11px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);text-align:center;margin-top:8px}
 
 /* ============ PARA QUEM / FAQ ============ */
 .duplo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
@@ -325,7 +327,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 }
 .cartao h3{font:700 17px var(--serif);letter-spacing:.02em;margin-bottom:10px}
 .cartao ul{list-style:none}
-.cartao li{padding:10px 0 10px 28px;position:relative;font-size:15px;border-bottom:1px solid rgba(251,250,247,.06)}
+.cartao li{padding:11px 0 11px 30px;position:relative;font:500 16px/1.5 var(--sans);color:var(--papel);border-bottom:1px solid rgba(0,0,0,.35)}
 .cartao li:last-child{border-bottom:0}
 .cartao li::before{position:absolute;left:0;top:10px;font-weight:800}
 .sim li::before{content:"✓";color:var(--cyan)}
@@ -337,7 +339,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--ouro);font-weight:300;font-size:24px;line-height:1;flex-shrink:0}
 .faq details[open] summary::after{content:"–"}
-.faq p{margin:12px 0 0;color:var(--bruma);font-size:15.5px}
+.faq p{margin:12px 0 0;color:var(--bruma-forte);font:500 16.5px/1.6 var(--sans)}
 
 /* ============ ATO FINAL · A OFERTA ============ */
 .final{
@@ -358,17 +360,16 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
   box-shadow:0 18px 36px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(251,250,247,.06)
 }
 .trino b{display:block;font:900 40px/1 var(--sans);color:var(--ouro);-webkit-text-stroke:2px var(--tinta);paint-order:stroke fill}
-.trino span{font-size:12.5px;display:block;margin-top:5px}
-.trino small{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bruma)}
-.kit{font-size:14.5px;color:var(--bruma);max-width:54ch;margin:0 auto 30px}
+.trino span{font:700 14px var(--sans);display:block;margin-top:5px;color:var(--papel)}
+.trino small{font:700 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.kit{font:500 16.5px/1.6 var(--sans);color:var(--bruma-forte);max-width:54ch;margin:0 auto 30px}
 /* Os dois caminhos lado a lado no desktop; empilhados no celular, com o
    dourado sempre em cima — a hierarquia não se inverte em tela estreita. */
 .par-botoes{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
 .kit b{color:var(--ouro)}
-.selos{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;margin-top:26px;
-  font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
+.selos{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;margin-top:26px;font:700 11.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bruma-forte)}
 
-footer{color:var(--bruma);font-size:12.5px;padding:30px 0 14px;line-height:1.7;position:relative;z-index:2}
+footer{color:var(--bruma-forte);font-size:13.5px;padding:30px 0 14px;line-height:1.7;position:relative;z-index:2}
 footer strong{color:var(--ouro);font:600 10.5px var(--mono);letter-spacing:.24em;text-transform:uppercase}
 footer a{color:var(--ouro-claro)}
 
@@ -383,7 +384,7 @@ footer a{color:var(--ouro-claro)}
   padding:10px 12px 10px 20px;
   box-shadow:0 22px 48px -14px rgba(0,0,0,.7)
 }
-.barra .val{font-size:12.5px;line-height:1.3;color:var(--bruma);display:flex;flex-direction:column;gap:5px}
+.barra .val{font:600 13px var(--sans);line-height:1.3;color:var(--papel);display:flex;flex-direction:column;gap:5px}
 .barra .val b{color:var(--ouro);font:900 26px/1 var(--sans);-webkit-text-stroke:1.5px var(--tinta);paint-order:stroke fill}
 /* A ferramenta acompanha o preço na barra: quem rola a página inteira sem
    comprar ainda tem uma porta de entrada gratuita à mão. */
@@ -554,7 +555,7 @@ ENTREGUE   três decisões numeradas, com risco e responsável
         </ul>
       </div>
     </div>
-    <p class="rev" style="margin-top:24px;color:var(--bruma);font-size:14px">Este material não promete renda, promoção ou resultado garantido. Ele ensina raciocínio, organização e colaboração com IA.</p>
+    <p class="rev" style="margin-top:24px;color:var(--bruma-forte);font-size:15.5px;font-weight:500">Este material não promete renda, promoção ou resultado garantido. Ele ensina raciocínio, organização e colaboração com IA.</p>
   </div>
 </section>
 

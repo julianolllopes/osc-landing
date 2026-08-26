@@ -173,36 +173,11 @@ h1 em{font-style:normal;color:var(--ouro)}
    descobre sozinho que falta critério para preencher os sete campos. É isso
    que o livro vende. Nunca chamar de "brinde": o app é público e gratuito,
    e prometer que ele vem junto com a compra seria trocar a isca. */
-.btn-2{
-  display:inline-flex;align-items:center;gap:11px;margin-top:18px;
-  color:var(--cyan);text-decoration:none;
-  font:600 15.5px var(--sans);letter-spacing:.01em;
-  padding:16px 32px;border-radius:99px;
-  border:1.5px solid rgba(109,181,181,.55);
-  background:rgba(109,181,181,.06);
-  box-shadow:0 0 34px -14px rgba(109,181,181,.5);
-  transition:background .18s, border-color .18s, color .18s, transform .16s
-}
-.btn-2:hover{
-  background:rgba(109,181,181,.13);border-color:var(--cyan);
-  color:var(--papel);transform:translateY(-1px)
-}
-.btn-2:active{transform:translateY(0) scale(.98)}
-.btn-2:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 /* Ponto que respira: puxa o olho de longe sem virar adesivo. */
-.btn-2 i{
-  width:8px;height:8px;border-radius:50%;background:var(--cyan);flex:0 0 auto;
-  box-shadow:0 0 0 0 rgba(109,181,181,.6);
-  animation:pulsa 2.4s ease-out infinite
-}
 @keyframes pulsa{
   0%{box-shadow:0 0 0 0 rgba(109,181,181,.55)}
   70%{box-shadow:0 0 0 11px rgba(109,181,181,0)}
   100%{box-shadow:0 0 0 0 rgba(109,181,181,0)}
-}
-.sob-btn-2{
-  font:600 14px/1.5 var(--sans);color:var(--bruma-forte);
-  max-width:36ch;margin:11px auto 0;opacity:.9
 }
 
 .desce{
@@ -406,17 +381,6 @@ footer a{color:var(--ouro-claro)}
 .barra .val b{color:var(--ouro);font:900 26px/1 var(--sans);-webkit-text-stroke:1.5px var(--tinta);paint-order:stroke fill}
 /* A ferramenta acompanha o preço na barra: quem rola a página inteira sem
    comprar ainda tem uma porta de entrada gratuita à mão. */
-.barra-link{
-  display:inline-flex;align-items:center;gap:7px;
-  color:var(--cyan);text-decoration:none;
-  font:600 12px var(--sans);white-space:nowrap
-}
-.barra-link i{
-  width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:0 0 auto;
-  animation:pulsa 2.4s ease-out infinite
-}
-.barra-link:hover{color:var(--papel)}
-.barra-link:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
 .barra .btn{padding:13px 22px;font-size:14px;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(212,183,131,.5), inset 0 1px 0 rgba(255,255,255,.4)}
 
 ::selection{background:rgba(109,181,181,.35);color:var(--papel)}
@@ -608,7 +572,6 @@ FALA        "oxente e pensar que uns dias atrás eu era apenas
     <div class="rev">
       <div class="par-botoes">
         <a class="btn" href="#" data-cta="final" style="font-size:17.5px;padding:20px 44px">Quero o método →</a>
-        <a class="btn-2" href="app/" data-ferramenta="final" style="margin-top:0"><i aria-hidden="true"></i>Experimentar grátis →</a>
       </div>
       <p class="sob-btn">Pagamento seguro · acesso imediato · 7 dias de garantia</p>
       <div class="selos"><span>⌘ método C.O.M.A.N.D.O.</span><span>◈ garantia de 7 dias</span><span>⚡ acesso imediato</span></div>
@@ -629,7 +592,7 @@ FALA        "oxente e pensar que uns dias atrás eu era apenas
 <div class="barra">
   <div class="val">
     <b>APENAS R$ 19,90</b>
-    <a class="barra-link" href="app/" data-ferramenta="barra"><i aria-hidden="true"></i>Experimentar grátis</a>
+    <span>acesso imediato</span>
   </div>
   <a class="btn" href="#" data-cta="barra">Quero o método</a>
 </div>

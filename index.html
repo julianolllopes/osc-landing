@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>O Segredo do Comando — método para transformar conversa com IA em entrega</title>
-<meta name="description" content="De projeto executivo a vídeo fotorrealista: o método C.O.M.A.N.D.O. em sete partes. Cartilha de 79 páginas e quatro bônus inclusos. R$ 19,90.">
+<meta name="description" content="De projeto executivo a vídeo fotorrealista: o método C.O.M.A.N.D.O. em sete partes. Cartilha ilustrada de 40 páginas e um bônus prático incluso. R$ 19,90.">
 <meta name="theme-color" content="#050D14">
 <link rel="canonical" href="https://osc-landing.vercel.app/">
 <meta property="og:type" content="website">
@@ -82,8 +82,8 @@ img{max-width:100%;height:auto;display:block}
    embaixo para a oferta. O rosto fica no meio, sem nada por cima. */
 .fundo-arte{
   position:absolute;inset:0;z-index:0;
-  background:url("img/arte.jpg") center 58%/cover no-repeat;
-  opacity:.62;
+  background:url("img/fundo/hero.jpg") center 46%/cover no-repeat;
+  opacity:.55;
   -webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 13%,#000 29%,#000 73%,transparent 91%);
   mask-image:linear-gradient(180deg,transparent 0%,transparent 13%,#000 29%,#000 73%,transparent 91%)
 }
@@ -212,6 +212,25 @@ h1 em{font-style:normal;color:var(--ouro)}
 .desce::after{content:"";display:block;width:1px;height:34px;margin:12px auto 0;
   background:linear-gradient(180deg,var(--cyan),transparent);animation:pinga 2s ease-in-out infinite}
 @keyframes pinga{50%{transform:translateY(7px);opacity:.5}}
+
+/* Ilustracoes do material como atmosfera das secoes. Ficam atras de
+   tudo, escurecidas o bastante para o texto nunca perder contraste. */
+.arte-secao{position:relative;overflow:hidden}
+.arte-secao::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-size:cover;background-position:center;
+  opacity:.30;
+  -webkit-mask-image:radial-gradient(75% 65% at 50% 50%,#000 25%,transparent 82%);
+  mask-image:radial-gradient(75% 65% at 50% 50%,#000 25%,transparent 82%)
+}
+.arte-secao::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--breu) 0%,rgba(8,18,43,.55) 22%,rgba(8,18,43,.55) 78%,var(--breu) 100%)
+}
+.arte-secao > *{position:relative;z-index:1}
+.arte-metodo::before{background-image:url("img/fundo/metodo.jpg")}
+.arte-terminal::before{background-image:url("img/fundo/terminal.jpg")}
+.arte-oferta::before{background-image:url("img/fundo/oferta.jpg")}
 
 /* ============ SEÇÕES ============ */
 section{padding:clamp(54px,7.5vw,76px) 0;position:relative}
@@ -466,7 +485,7 @@ footer a{color:var(--ouro-claro)}
 <main>
 
 <!-- ============ ATO 2 · O TERMINAL ============ -->
-<section>
+<section class="arte-secao arte-terminal">
   <div class="env">
     <p class="kicker rev">Sem cortina</p>
     <h2 class="rev">O comando que fez <em>o vídeo lá de cima.</em></h2>
@@ -490,7 +509,7 @@ FALA        "oxente e pensar que uns dias atrás eu era apenas
 </section>
 
 <!-- ============ ATO 3 · O MÉTODO ============ -->
-<section>
+<section class="arte-secao arte-metodo">
   <div class="env">
     <p class="kicker rev">As sete partes</p>
     <h2 class="rev">Sete decisões que você toma — <em>ou a máquina toma por você.</em></h2>
@@ -564,7 +583,7 @@ FALA        "oxente e pensar que uns dias atrás eu era apenas
     <div class="faq rev">
       <details><summary>É uma lista de prompts?</summary><p>Não. Prompt pronto envelhece na próxima atualização da ferramenta. O método são sete decisões suas, e elas continuam valendo quando o gerador muda de nome.</p></details>
       <details><summary>Preciso pagar as ferramentas?</summary><p>Boa parte roda no plano gratuito. Onde o pago faz diferença, o material diz quanto custa e o que muda — sem empurrar assinatura que você não precisa.</p></details>
-      <details><summary>Serve se eu não uso ChatGPT?</summary><p>Serve. As sete partes são decisões suas, não botões de um programa. Os exemplos são demonstrados nas ferramentas que a gente usa de verdade, e um dos bônus é um protocolo para calibrar o método em qualquer IA — inclusive as que ainda não existem.</p></details>
+      <details><summary>Serve se eu não uso ChatGPT?</summary><p>Serve. As sete partes são decisões suas, não botões de um programa. Os exemplos são demonstrados nas ferramentas que a gente usa de verdade, e o método se calibra em qualquer IA — inclusive nas que ainda não existem.</p></details>
       <details><summary>Meu personagem vai mudar de rosto entre um vídeo e outro?</summary><p>Esse é o erro que mais derruba quem tenta. Tem capítulo só sobre isso: como travar o rosto para ele voltar igual amanhã, depois de amanhã e daqui a um mês.</p></details>
       <details><summary>Preciso saber editar vídeo?</summary><p>Não. Os vídeos que você viu aqui saíram prontos da geração — o corte final é emenda simples, e o material mostra como. Se você sabe usar o celular, dá conta.</p></details>
       <details><summary>Como recebo?</summary><p>Acesso digital imediato assim que o pagamento confirma, direto no seu e-mail. Abre no celular ou no computador.</p></details>
@@ -575,16 +594,16 @@ FALA        "oxente e pensar que uns dias atrás eu era apenas
 </section>
 
 <!-- ============ ATO FINAL · A OFERTA ============ -->
-<section class="final" id="comprar">
+<section class="final arte-secao arte-oferta" id="comprar">
   <div class="halo" aria-hidden="true"></div>
   <div class="env">
     <p class="kicker rev">Comece hoje</p>
     <h2 class="rev">O mesmo método. <em>Por R$ 19,90.</em></h2>
-    <p class="chumbo rev" style="margin:0 auto 8px;text-align:center">O que fez o Raimundim sair da cabeça e chegar em 107 mil pessoas — escrito, com os exemplos que você viu aqui.</p>
+    <p class="chumbo rev" style="margin:0 auto 8px;text-align:center">Cartilha ilustrada, o método inteiro e o bônus de documentos profissionais com IA. Tudo em imagem, nada de bloco de texto.</p>
     <div class="trino rev">
-      <div><b>143</b><span>páginas</span><small>cartilha e bônus</small></div>
+      <div><b>40</b><span>páginas</span><small>cartilha ilustrada</small></div>
       <div><b>7</b><span>partes</span><small>o método inteiro</small></div>
-      <div><b>20</b><span>casos reais</span><small>nada inventado</small></div>
+      <div><b>10</b><span>páginas</span><small>bônus incluso</small></div>
     </div>
     <!-- O Kit é o order bump de R$ 9,90, NÃO faz parte dos R$ 19,90. -->
     <p class="kit rev">No checkout você pode somar o <b>Kit de Comando</b> por R$ 9,90 — 12 artefatos prontos, para não começar da folha em branco. Opcional.</p>

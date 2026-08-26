@@ -272,9 +272,8 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 /* ============ ATO 4 · A PROVA (fita) ============ */
 .fita-wrap{position:relative;margin-top:38px}
 .fita{
-  display:flex;gap:20px;overflow-x:auto;padding:8px 22px 22px;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none
+  display:flex;flex-direction:column;align-items:center;gap:34px;
+  padding:8px 22px 22px
 }
 .fita::-webkit-scrollbar{display:none}
 
@@ -306,7 +305,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 .legenda-video b{color:var(--ouro);font-weight:800}
 .vitrine h2{margin-bottom:0;font-size:clamp(24px,4.4vw,38px)}
 .vitrine .fita-wrap{margin-top:22px}
-.fita figure{flex:0 0 min(66vw,240px);margin:0;scroll-snap-align:center}
+.fita figure{width:min(92vw,360px);margin:0}
 .fita video{width:100%;aspect-ratio:9/16;height:auto;object-fit:cover;
   border-radius:12px;border:3px solid var(--tinta);background:#000;
   box-shadow:0 26px 52px -20px rgba(0,0,0,.75);transition:transform .3s ease}
@@ -317,7 +316,7 @@ section:has(+ .final){padding-bottom:clamp(24px,3.4vw,34px)}
 }
 .fita figure:hover img,.fita figure:hover video{transform:translateY(-7px) rotate(-.6deg)}
 .fita figcaption{font:800 11.5px var(--mono);letter-spacing:.10em;text-transform:uppercase;color:var(--cyan);margin-top:12px;text-align:center}
-.arrasta{font:800 11px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);text-align:center;margin-top:8px}
+.arrasta{display:none}
 
 /* ============ PARA QUEM / FAQ ============ */
 .duplo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
